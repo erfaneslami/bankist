@@ -1,0 +1,23 @@
+:root {
+  --primary-font: "Inter", sans-serif;
+  --primary-color: #6667ab;
+  --primary-color-gray: #0a0a11;
+  --primary-color-light: #e0e1ee;
+}
+
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: var(--primary-font);
+  color: var(--primary-color-light);
+}
