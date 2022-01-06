@@ -15,6 +15,9 @@
     <title>Document</title>
   </head>
   <body class="home__body">
+    <!-- |||||| -->
+    <!-- HEADER -->
+    <!-- |||||| -->
     <header class="header">
       <p class="header__welcome">Hi erfan!</p>
       <img src="/img/logo.png" alt="bankist logo" class="header__logo" />
@@ -26,7 +29,44 @@
         <p class="card__number">6219 8610 4429 5383</p>
         <p class="card__owner">erfan eslami</p>
         <p class="card__balance">
-          current balance : <span class="card__balance_value">35000</span>
+          current balance : <span class="card__balance_value">35000$</span>
+        </p>
+      </div>
+      <!-- |||||| -->
+      <!-- MOVEMENTS -->
+      <!-- |||||| -->
+      <div class="movements">
+        <!-- SORT BTN -->
+        <p class="sort">&uarr;&darr;</p>
+
+        <div class="movements__row">
+          <div class="movements__type movements__type--deposit">1 deposit</div>
+          <div class="movements__value">7500</div>
+        </div>
+        <div class="movements__row">
+          <div class="movements__type movements__type--withdrawal">
+            1 withdrawal
+          </div>
+          <div class="movements__value">7500</div>
+        </div>
+      </div>
+
+      <!-- |||||| -->
+      <!-- SUMMERY -->
+      <!-- |||||| -->
+
+      <div class="summery">
+        <p class="summery__lable">
+          &darr; income :
+          <span class="summery__value summery__value--in">5500$</span>
+        </p>
+        <p class="summery__lable">
+          &uarr; outcome :
+          <span class="summery__value summery__value--out">3000$</span>
+        </p>
+        <p class="summery__lable">
+          interest :
+          <span class="summery__value summery__value--interest">55.5$</span>
         </p>
       </div>
     </main>

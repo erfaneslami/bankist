@@ -7,3 +7,12 @@
   font-family: inherit;
   font-weight: 700;
 }
+
+.header__btn--logOut {
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

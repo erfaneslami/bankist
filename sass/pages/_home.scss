@@ -7,24 +7,29 @@
   justify-content: space-between;
   padding: 2rem;
   align-items: center;
-  background-color: var(--primary);
+  background-color: var(--primary-color-gray2);
   backdrop-filter: blur(2rem);
 
   &__logo {
-    height: 5rem;
+    height: 3rem;
   }
 }
 
 .container {
-  max-width: 120rem;
+  max-width: 135rem;
   padding: 2rem;
-
   margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 2fr 1.5fr;
+  grid-template-rows: 40rem;
+  column-gap: 2rem;
+  row-gap: 1rem;
 }
 
 .card {
-  max-width: 63rem;
-  max-height: 40rem;
+  // max-width: 63rem;
+  // max-height: 40rem;
   // background-color: var(--primary-color-gray2);
   background: linear-gradient(
     to right bottom,
@@ -59,4 +64,69 @@
     font-size: 2.4rem;
     font-weight: 500;
   }
+}
+
+.movements {
+  background-color: var(--primary-color-gray2);
+  background: linear-gradient(
+    to right bottom,
+    #0a0a11f3,
+    rgba(31, 31, 51, 0.966)
+  );
+  border-radius: 2rem;
+  padding: 2rem;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.4rem;
+    border-bottom: 1px solid var(--primary-color);
+  }
+
+  &__type {
+    &--deposit {
+      color: var(--color-green);
+    }
+
+    &--withdrawal {
+      color: var(--color-red);
+    }
+  }
+}
+
+.summery {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  grid-column: 2/3;
+  padding: 1rem 3.4rem;
+  // color: var(--primary-color-gray);
+  background-color: var(--primary-color-gray2);
+  border-radius: 11px;
+  font-weight: 500;
+  font-size: 1.8rem;
+
+  &__value {
+    &--in,
+    &--interest {
+      color: var(--color-green);
+    }
+
+    &--out {
+      color: var(--color-red);
+    }
+  }
+}
+
+.sort {
+  cursor: pointer;
 }
