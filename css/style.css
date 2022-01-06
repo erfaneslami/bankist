@@ -17,7 +17,8 @@ html {
 
 body {
   font-family: var(--primary-font);
-  color: var(--primary-color-light); }
+  color: var(--primary-color-light);
+  font-size: 1.6rem; }
 
 .login__box_btn {
   background-color: var(--primary-color-light);
@@ -27,6 +28,46 @@ body {
   border-radius: 11px;
   font-family: inherit;
   font-weight: 700; }
+
+.home__body {
+  background-color: var(--primary-color); }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+  align-items: center;
+  backdrop-filter: blur(2rem); }
+  .header__logo {
+    height: 5rem; }
+
+.container {
+  max-width: 120rem;
+  padding: 2rem;
+  margin: 0 auto; }
+
+.card {
+  max-width: 63rem;
+  max-height: 40rem;
+  background: linear-gradient(to right bottom, #0a0a11f3, rgba(31, 31, 51, 0.966));
+  border-radius: 5rem;
+  padding: 5rem; }
+  .card__name {
+    text-align: right;
+    font-size: 2.6rem;
+    margin-bottom: 3rem; }
+  .card__number {
+    font-size: 4rem;
+    margin-bottom: 8rem; }
+  .card__owner {
+    font-size: 3.6rem;
+    margin-bottom: 4rem; }
+  .card__balance {
+    font-size: 2.2rem;
+    text-transform: uppercase; }
+  .card__balance_value {
+    font-size: 2.4rem;
+    font-weight: 500; }
 
 .login {
   height: 100vh;

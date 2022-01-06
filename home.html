@@ -4,9 +4,31 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
     <title>Document</title>
   </head>
-  <body>
-    <div class="card"></div>
+  <body class="home__body">
+    <header class="header">
+      <p class="header__welcome">Hi erfan!</p>
+      <img src="/img/logo.png" alt="bankist logo" class="header__logo" />
+      <a class="header__btn--logOut" href="#">Logout</a>
+    </header>
+    <main class="container">
+      <div class="card">
+        <p class="card__name">Saman Bank</p>
+        <p class="card__number">6219 8610 4429 5383</p>
+        <p class="card__owner">erfan eslami</p>
+        <p class="card__balance">
+          current balance : <span class="card__balance_value">35000</span>
+        </p>
+      </div>
+    </main>
   </body>
 </html>
