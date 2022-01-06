@@ -1,3 +1,5 @@
+"use strict";
+
 document
   .querySelector(".login__box_btn")
   .addEventListener("click", function (e) {

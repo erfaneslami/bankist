@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header__welcome">Hi erfan!</p>
       <img src="/img/logo.png" alt="bankist logo" class="header__logo" />
-      <a class="header__btn--logOut" href="#">Logout</a>
+      <a class="header__btn--logOut" href="index.html">Logout</a>
     </header>
 
     <!-- MAIN -->
@@ -40,16 +40,19 @@
       <div class="movements">
         <!-- SORT BTN -->
         <p class="sort">&uarr;&darr;</p>
-
-        <div class="movements__row">
-          <div class="movements__type movements__type--deposit">1 deposit</div>
-          <div class="movements__value">7500</div>
-        </div>
-        <div class="movements__row">
-          <div class="movements__type movements__type--withdrawal">
-            1 withdrawal
+        <div class="movContainer">
+          <div class="movements__row">
+            <div class="movements__type movements__type--deposit">
+              1 deposit
+            </div>
+            <div class="movements__value">7500</div>
           </div>
-          <div class="movements__value">7500</div>
+          <div class="movements__row">
+            <div class="movements__type movements__type--withdrawal">
+              1 withdrawal
+            </div>
+            <div class="movements__value">7500</div>
+          </div>
         </div>
       </div>
 
@@ -134,5 +137,7 @@
         </div>
       </div>
     </main>
+
+    <script src="script/home.js"></script>
   </body>
 </html>
