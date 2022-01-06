@@ -53,6 +53,8 @@ const labelOwner = document.querySelector(".card__owner");
 const labelCardNumber = document.querySelector(".card__number");
 const labelBankName = document.querySelector(".card__name");
 const labelWelcome = document.querySelector(".header__welcome");
+const labelIncome = document.querySelector(".summery__value--in");
+const labelOutcome = document.querySelector(".summery__value--out");
 
 const containerMovements = document.querySelector(".movements");
 const containerMovementsInner = document.querySelector(".movContainer");
@@ -103,3 +105,21 @@ const displayBankName = (acc) => {
 
 const displayWelcomeName = (acc) =>
   (labelWelcome.textContent = `Hi ${acc.owner.split(" ")[0]} !`);
+
+const calcDisplayIncome = function (movements) {
+  labelIncome.textContent =
+    movements
+      .filter((mov) => mov > 0)
+      .reduce((acc, deposit) => acc + deposit, 0) + `$`;
+};
+
+const calcDisplayOutcome = function (movements) {
+  labelOutcome.textContent =
+    Math.abs(
+      movements
+        .filter((mov) => mov < 0)
+        .reduce((acc, deposit) => acc + deposit, 0)
+    ) + `$`;
+};
+
+calcDisplayOutcome(account3.movements);
