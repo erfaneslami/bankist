@@ -16,15 +16,15 @@
 }
 
 .container {
-  max-width: 135rem;
+  max-width: 140rem;
   padding: 2rem;
   margin: 0 auto;
 
   display: grid;
   grid-template-columns: 2fr 1.5fr;
   grid-template-rows: 40rem;
-  column-gap: 2rem;
-  row-gap: 1rem;
+  column-gap: 4rem;
+  row-gap: 2rem;
 }
 
 .card {
@@ -129,4 +129,49 @@
 
 .sort {
   cursor: pointer;
+}
+
+.operation {
+  border-bottom: 2px solid var(--primary-color-gray2);
+  // border-bottom: 2px solid var(--color-green);
+  padding: 2rem 0;
+}
+
+.operations--close {
+  grid-column: 2/3;
+}
+
+.operations {
+  grid-row: 3/4;
+  display: flex;
+  align-items: flex-start;
+  gap: 5rem;
+  &__heading {
+    color: var(--primary-color-gray2);
+
+    margin-bottom: 2rem;
+  }
+
+  &__form {
+    display: flex;
+    gap: 1.5rem;
+  }
+  &__input {
+    width: 60%;
+    font-size: 2rem;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--primary-color-gray2);
+    padding: 1rem 0.5rem;
+
+    &::placeholder {
+      color: var(--primary-color-gray2);
+    }
+
+    &:focus,
+    &:active {
+      outline: none;
+      border-bottom: 1px solid var(--color-green);
+    }
+  }
 }

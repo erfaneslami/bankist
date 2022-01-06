@@ -37,6 +37,13 @@ body {
   .header__btn--logOut:hover {
     text-decoration: underline; }
 
+.operations__btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 2.4rem;
+  border-bottom: 1px solid var(--primary-color-gray2); }
+
 .home__body {
   background-color: var(--primary-color); }
 
@@ -51,14 +58,14 @@ body {
     height: 3rem; }
 
 .container {
-  max-width: 135rem;
+  max-width: 140rem;
   padding: 2rem;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 2fr 1.5fr;
   grid-template-rows: 40rem;
-  column-gap: 2rem;
-  row-gap: 1rem; }
+  column-gap: 4rem;
+  row-gap: 2rem; }
 
 .card {
   background: linear-gradient(to right bottom, #0a0a11f3, rgba(31, 31, 51, 0.966));
@@ -122,6 +129,37 @@ body {
 
 .sort {
   cursor: pointer; }
+
+.operation {
+  border-bottom: 2px solid var(--primary-color-gray2);
+  padding: 2rem 0; }
+
+.operations--close {
+  grid-column: 2/3; }
+
+.operations {
+  grid-row: 3/4;
+  display: flex;
+  align-items: flex-start;
+  gap: 5rem; }
+  .operations__heading {
+    color: var(--primary-color-gray2);
+    margin-bottom: 2rem; }
+  .operations__form {
+    display: flex;
+    gap: 1.5rem; }
+  .operations__input {
+    width: 60%;
+    font-size: 2rem;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--primary-color-gray2);
+    padding: 1rem 0.5rem; }
+    .operations__input::placeholder {
+      color: var(--primary-color-gray2); }
+    .operations__input:focus, .operations__input:active {
+      outline: none;
+      border-bottom: 1px solid var(--color-green); }
 
 .login {
   height: 100vh;

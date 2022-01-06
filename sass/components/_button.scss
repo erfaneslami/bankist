@@ -16,3 +16,11 @@
     text-decoration: underline;
   }
 }
+
+.operations__btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 2.4rem;
+  border-bottom: 1px solid var(--primary-color-gray2);
+}

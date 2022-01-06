@@ -23,6 +23,8 @@
       <img src="/img/logo.png" alt="bankist logo" class="header__logo" />
       <a class="header__btn--logOut" href="#">Logout</a>
     </header>
+
+    <!-- MAIN -->
     <main class="container">
       <div class="card">
         <p class="card__name">Saman Bank</p>
@@ -54,7 +56,6 @@
       <!-- |||||| -->
       <!-- SUMMERY -->
       <!-- |||||| -->
-
       <div class="summery">
         <p class="summery__lable">
           &darr; income :
@@ -68,6 +69,69 @@
           interest :
           <span class="summery__value summery__value--interest">55.5$</span>
         </p>
+      </div>
+
+      <div class="operations operations--close">
+        <div class="operation operation--close">
+          <h2 class="operations__heading">Close Account</h2>
+          <form action="#" class="operations__form">
+            <input
+              type="text"
+              class="operations__input"
+              placeholder="Confirm user"
+            />
+            <input
+              type="number"
+              class="operations__input"
+              placeholder="Confirm Password"
+            />
+            <button
+              type="submit"
+              class="operations__btn operations__btn--close"
+            >
+              &rarr;
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Operations -->
+      <div class="operations">
+        <div class="operation operations--transfer">
+          <h2 class="operations__heading">Transfer money</h2>
+          <form action="#" class="operations__form">
+            <input
+              type="text"
+              class="operations__input"
+              placeholder="Transfer to"
+            />
+            <input
+              type="number"
+              class="operations__input"
+              placeholder="Amount"
+            />
+            <button
+              type="submit"
+              class="operations__btn operations__btn--transfer"
+            >
+              &rarr;
+            </button>
+          </form>
+        </div>
+
+        <div class="operation operations--loan">
+          <h2 class="operations__heading">Request loan</h2>
+          <form action="#" class="operations__form">
+            <input
+              type="number"
+              class="operations__input"
+              placeholder="Amount"
+            />
+            <button type="submit" class="operations__btn operations__btn--loan">
+              &rarr;
+            </button>
+          </form>
+        </div>
       </div>
     </main>
   </body>
