@@ -131,7 +131,6 @@ body {
   cursor: pointer; }
 
 .operation {
-  border-bottom: 2px solid var(--primary-color-gray2);
   padding: 2rem 0; }
 
 .operations--close {
