@@ -5,19 +5,27 @@
 
   &__left {
     background-color: var(--primary-color);
-
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
     &_textbox {
       display: flex;
       align-items: center;
-      padding-top: 5rem;
+      gap: 1rem;
 
       h1 {
-        font-size: 8rem;
+        font-size: 6rem;
         font-weight: 400;
       }
     }
+
+    img {
+      height: 35rem;
+    }
     &_logo {
-      height: 20rem;
+      height: 10rem !important;
     }
   }
 
@@ -38,13 +46,11 @@
     flex-direction: column;
     gap: 5rem;
 
+    box-shadow: 11px 11px 18px #09090f;
     &_logo {
-      height: 8rem;
+      height: 5rem;
 
       align-self: start;
-    }
-    &_logo path {
-      fill: var(--primary-color-light);
     }
 
     &_welcome {

@@ -33,16 +33,23 @@ body {
   display: grid;
   grid-template-columns: 5fr 2fr; }
   .login__left {
-    background-color: var(--primary-color); }
+    background-color: var(--primary-color);
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between; }
     .login__left_textbox {
       display: flex;
       align-items: center;
-      padding-top: 5rem; }
+      gap: 1rem; }
       .login__left_textbox h1 {
-        font-size: 8rem;
+        font-size: 6rem;
         font-weight: 400; }
+    .login__left img {
+      height: 35rem; }
     .login__left_logo {
-      height: 20rem; }
+      height: 10rem !important; }
   .login__right {
     background-color: var(--primary-color-gray);
     display: flex;
@@ -55,12 +62,11 @@ body {
     background-color: var(--primary-color-gray2);
     display: flex;
     flex-direction: column;
-    gap: 5rem; }
+    gap: 5rem;
+    box-shadow: 11px 11px 18px #09090f; }
     .login__box_logo {
-      height: 8rem;
+      height: 5rem;
       align-self: start; }
-    .login__box_logo path {
-      fill: var(--primary-color-light); }
     .login__box_welcome {
       font-size: 4.2rem; }
     .login__box_form {
