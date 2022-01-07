@@ -55,15 +55,17 @@ const labelBankName = document.querySelector(".card__name");
 const labelWelcome = document.querySelector(".header__welcome");
 const labelIncome = document.querySelector(".summery__value--in");
 const labelOutcome = document.querySelector(".summery__value--out");
+const labelInterest = document.querySelector(".summery__value--interest");
 
 const containerMovements = document.querySelector(".movements");
 const containerMovementsInner = document.querySelector(".movContainer");
 
 const btnSort = document.querySelector(".sort");
 
-const displayMovements = function (movements) {
+// ! Display Movements
+const displayMovements = function (acc) {
   containerMovementsInner.innerHTML = "";
-  movements.forEach((mov, i) => {
+  acc.movements.forEach((mov, i) => {
     const type = mov > 0 ? `deposit` : `withdrawal`;
 
     btnSort.insertAdjacentHTML(
@@ -79,19 +81,10 @@ const displayMovements = function (movements) {
   });
 };
 
-const calcDisplayBalance = function (movements) {
-  const balance = movements.reduce((acc, mov) => {
-    return acc + mov;
-  }, 0);
-  labelBalance.textContent = `${balance}$`;
-};
-
-const displayName = (acc) => (labelOwner.textContent = acc.owner);
-const displayCardNumber = (acc) =>
-  (labelCardNumber.textContent = acc.cardNumber);
-
-const displayBankName = (acc) => {
-  const bandName =
+// ! DISPLAY CARD
+const displayCard = function (acc) {
+  // * Display Bank Name
+  labelBankName.textContent =
     acc.cardNumber.slice(0, 4) === `6219`
       ? `Saman Bank`
       : acc.cardNumber.slice(0, 4) === `5024`
@@ -100,26 +93,58 @@ const displayBankName = (acc) => {
       ? `Saderat Bank`
       : `un known Bank`;
 
-  labelBankName.textContent = bandName;
+  // * Display Owner Name
+  labelOwner.textContent = acc.owner;
+
+  // * Display Card Number
+  labelCardNumber.textContent = acc.cardNumber;
+
+  // * Display Balance
+  labelBalance.textContent =
+    acc.movements.reduce((acc, mov) => {
+      return acc + mov;
+    }, 0) + `$`;
 };
 
 const displayWelcomeName = (acc) =>
   (labelWelcome.textContent = `Hi ${acc.owner.split(" ")[0]} !`);
 
-const calcDisplayIncome = function (movements) {
+// ! DISPLAY SUMMERY
+const calcDisplaySummery = function (acc) {
+  // * INCOME
   labelIncome.textContent =
-    movements
+    acc.movements
       .filter((mov) => mov > 0)
       .reduce((acc, deposit) => acc + deposit, 0) + `$`;
-};
 
-const calcDisplayOutcome = function (movements) {
+  // * OUT COME
   labelOutcome.textContent =
     Math.abs(
-      movements
+      acc.movements
         .filter((mov) => mov < 0)
         .reduce((acc, deposit) => acc + deposit, 0)
     ) + `$`;
+
+  // * INTEREST
+  labelInterest.textContent =
+    acc.movements
+      .filter((mov) => mov > 0)
+      .map((deposit) => (deposit * acc.interestRate) / 100)
+      .filter((int) => int > 1)
+      .reduce((acc, int) => acc + int, 0) + `$`;
 };
 
-calcDisplayOutcome(account3.movements);
+const updateUI = function (acc) {
+  displayMovements(acc);
+  calcDisplaySummery(acc);
+  displayCard(acc);
+};
+
+calcDisplaySummery(account2);
+
+displayBankName(account1);
+displayMovements(account1.movements);
+displayName(account1);
+displayCardNumber(account1);
+displayWelcomeName(account1);
+calcDisplayBalance(account1.movements);
