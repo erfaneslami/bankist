@@ -7,7 +7,7 @@ const btnLogin = document.querySelector(".login__box_btn");
 class LoginApp {
   constructor() {
     // EVENT HANDLERS
-    btnLogin.addEventListener("click", this._logIn.bind(this));
+    btnLogin.addEventListener("click", this._logIn);
   }
 
   _logIn(e) {
@@ -17,6 +17,11 @@ class LoginApp {
       (acc) =>
         acc.username === inputUsername.value && acc.pin === inputPassword.value
     );
+
+    if (!currentUser) {
+      alert("Wrong username or password !");
+      return;
+    }
 
     localStorage.setItem("currentAcc", JSON.stringify(currentUser));
     window.location.href = "../home.html";

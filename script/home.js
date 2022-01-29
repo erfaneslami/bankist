@@ -58,7 +58,7 @@ const labelOutcome = document.querySelector(".summery__value--out");
 const labelInterest = document.querySelector(".summery__value--interest");
 
 const containerMovements = document.querySelector(".movements");
-const containerMovementsInner = document.querySelector(".movContainer");
+const containerMovementsInner = document.querySelector(".movements__container");
 
 const btnSort = document.querySelector(".sort");
 
@@ -68,8 +68,8 @@ const displayMovements = function (acc) {
   acc.movements.forEach((mov, i) => {
     const type = mov > 0 ? `deposit` : `withdrawal`;
 
-    btnSort.insertAdjacentHTML(
-      "afterend",
+    containerMovementsInner.insertAdjacentHTML(
+      "afterbegin",
       `
     <div class="movements__row">
       <div class="movements__type movements__type--${type}"> ${

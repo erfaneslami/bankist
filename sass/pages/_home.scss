@@ -73,14 +73,20 @@
     #0a0a11f3,
     rgba(31, 31, 51, 0.966)
   );
+
+  display: flex;
+  flex-direction: column;
   border-radius: 2rem;
   padding: 2rem;
-  overflow-y: scroll;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  &__container {
+    overflow-y: auto;
   }
 
   &__row {
