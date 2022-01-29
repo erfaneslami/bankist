@@ -94,15 +94,15 @@ body {
   display: flex;
   flex-direction: column;
   border-radius: 2rem;
-  padding: 2rem;
-  -ms-overflow-style: none;
-  /* IE and Edge */
-  scrollbar-width: none;
-  /* Firefox */ }
-  .movements::-webkit-scrollbar {
-    display: none; }
+  padding: 2rem; }
   .movements__container {
-    overflow-y: auto; }
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */ }
+    .movements__container::-webkit-scrollbar {
+      display: none; }
   .movements__row {
     display: flex;
     align-items: center;
