@@ -106,6 +106,7 @@ const displayCard = function (acc) {
     }, 0) + `$`;
 };
 
+// ! Display Welcome name
 const displayWelcomeName = (acc) =>
   (labelWelcome.textContent = `Hi ${acc.owner.split(" ")[0]} !`);
 
@@ -136,15 +137,14 @@ const calcDisplaySummery = function (acc) {
 
 const updateUI = function (acc) {
   displayMovements(acc);
-  calcDisplaySummery(acc);
   displayCard(acc);
+  displayWelcomeName(acc);
+  calcDisplaySummery(acc);
 };
 
-calcDisplaySummery(account2);
+// let currentUserr = localStorage.getItem("currentAccStorage");
 
-displayBankName(account1);
-displayMovements(account1.movements);
-displayName(account1);
-displayCardNumber(account1);
-displayWelcomeName(account1);
-calcDisplayBalance(account1.movements);
+// console.log(currentUserr);
+
+// updateUI(account3);
+// console.log(account3);
