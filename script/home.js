@@ -22,6 +22,7 @@ const containerMovementsInner = document.querySelector(".movements__container");
 const btnSort = document.querySelector(".sort");
 const btnTransfer = document.querySelector(".operations__btn--transfer");
 const btnClose = document.querySelector(".operations__btn--close");
+const btnLoan = document.querySelector(".operations__btn--loan");
 
 const inputTransferAccount = document.querySelector(
   ".input--transfer-to-account"
@@ -29,6 +30,7 @@ const inputTransferAccount = document.querySelector(
 const inputTransferAmount = document.querySelector(".input--transfer-amount");
 const inputCloseUsername = document.querySelector(".input--close-account");
 const inputClosePin = document.querySelector(".input--close-pin");
+const inputLoanAmount = document.querySelector(".input--loan-amount");
 /////////////////////////////////////////////////
 
 /////////////////////////////////////////////////
@@ -41,6 +43,26 @@ class App {
     // EVENT HANDLERS
     btnTransfer.addEventListener("click", this._transferMoney.bind(this));
     btnClose.addEventListener("click", this._closeAccount.bind(this));
+    btnLoan.addEventListener("click", this._getLoan.bind(this));
+  }
+
+  // ------------ LOAN ------------
+
+  _getLoan(e) {
+    e.preventDefault();
+    const amount = +inputLoanAmount.value;
+
+    if (
+      !(amount > 0) ||
+      !this.account.movements.some((mov) => mov >= amount * 0.1)
+    ) {
+      alert("we Are very Sorry , we cant Loan you this much money");
+      return;
+    }
+
+    this.account.movements.push(amount);
+    this._updateUI(this.account);
+    this._clearInputsEl(inputLoanAmount);
   }
 
   // ------------ CLOSE ACCOUNT ------------
@@ -67,7 +89,7 @@ class App {
       (acc) => acc.username === accUsername
     );
     accounts.splice(accountIndex, 1);
-
+    this._clearInputsEl(inputCloseUsername, inputClosePin);
     window.location.href = "../index.html";
   }
 
