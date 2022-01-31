@@ -39,7 +39,6 @@ const account5 = {
   pin: "ali123",
   cardNumber: `6037 1212 3596 3535`,
 };
-
 const accounts = [account1, account2, account3, account4, account5];
 
 const creatUserName = function (accounts) {
@@ -52,11 +51,12 @@ const creatUserName = function (accounts) {
   );
 };
 
-const calcBalance = function (accounts) {
-  accounts.forEach(
-    (acc) => (acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0))
-  );
+creatUserName(accounts);
+
+const _setLocalStorageDatabase = function () {
+  const data = localStorage.getItem("accounts");
+  if (data) return;
+  localStorage.setItem("accounts", JSON.stringify(accounts));
 };
 
-creatUserName(accounts);
-calcBalance(accounts);
+_setLocalStorageDatabase();

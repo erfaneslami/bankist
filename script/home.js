@@ -35,15 +35,37 @@ const inputLoanAmount = document.querySelector(".input--loan-amount");
 
 /////////////////////////////////////////////////
 class App {
-  constructor(account) {
-    this.account = account;
-
-    this._updateUI(this.account);
+  #accounts = [];
+  #currentUser;
+  constructor() {
+    this._getLocalStorage();
+    this._getCurrentUser();
+    this._updateUI(this.#currentUser);
 
     // EVENT HANDLERS
     btnTransfer.addEventListener("click", this._transferMoney.bind(this));
     btnClose.addEventListener("click", this._closeAccount.bind(this));
     btnLoan.addEventListener("click", this._getLoan.bind(this));
+  }
+
+  _getCurrentUser() {
+    const account = JSON.parse(localStorage.getItem("currentAcc"));
+    console.log(account);
+    const currentUser = this.#accounts.find(
+      (acc) => acc.username === account.username
+    );
+    console.log(currentUser);
+
+    this.#currentUser = currentUser;
+  }
+
+  _getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem("accounts"));
+    this.#accounts = data;
+  }
+
+  _setLocalStorage() {
+    localStorage.setItem("accounts", JSON.stringify(this.#accounts));
   }
 
   // ------------ LOAN ------------
@@ -54,15 +76,17 @@ class App {
 
     if (
       !(amount > 0) ||
-      !this.account.movements.some((mov) => mov >= amount * 0.1)
+      !this.#currentUser.movements.some((mov) => mov >= amount * 0.1)
     ) {
       alert("we Are very Sorry , we cant Loan you this much money");
       return;
     }
 
-    this.account.movements.push(amount);
-    this._updateUI(this.account);
+    this.#currentUser.movements.push(amount);
+    this._updateUI(this.#currentUser);
     this._clearInputsEl(inputLoanAmount);
+
+    this._setLocalStorage();
   }
 
   // ------------ CLOSE ACCOUNT ------------
@@ -76,20 +100,22 @@ class App {
       return;
     }
 
-    if (accUsername !== this.account.username) {
+    if (accUsername !== this.#currentUser.username) {
       alert("Please Enter correct username");
       return;
     }
-    if (accPin !== this.account.pin) {
+    if (accPin !== this.#currentUser.pin) {
       alert("Wrong password ! try again");
       return;
     }
 
-    const accountIndex = accounts.findIndex(
+    const accountIndex = this.#accounts.findIndex(
       (acc) => acc.username === accUsername
     );
-    accounts.splice(accountIndex, 1);
+    this.#accounts.splice(accountIndex, 1);
     this._clearInputsEl(inputCloseUsername, inputClosePin);
+    this._setLocalStorage();
+
     window.location.href = "../index.html";
   }
 
@@ -113,10 +139,11 @@ class App {
       return;
     }
 
-    this.account.movements.push(-amount);
+    this.#currentUser.movements.push(-amount);
     receiverAccount.movements.push(amount);
-    this._updateUI(this.account);
+    this._updateUI(this.#currentUser);
     this._clearInputsEl(inputTransferAccount, inputTransferAmount);
+    this._setLocalStorage();
   }
 
   _allFieldsFill(...inputsEl) {
@@ -127,10 +154,10 @@ class App {
   }
 
   _ValidateTransferAmount(amount) {
-    return this.account.balance > amount && amount > 0 ? true : false;
+    return this.#currentUser.balance > amount && amount > 0 ? true : false;
   }
   _findAccount(account) {
-    return accounts.find((acc) => acc.username === account);
+    return this.#accounts.find((acc) => acc.username === account);
   }
 
   // ------------ UPDATE UI ------------
@@ -215,5 +242,7 @@ class App {
 }
 /////////////////////////////////////////////////
 
-const currentAcc = JSON.parse(localStorage.getItem("currentAcc"));
-const init = new App(currentAcc);
+// const currentAcc = JSON.parse(localStorage.getItem("currentAcc"));
+
+// const test = accounts.find((acc) => (acc = currentAcc));
+const init = new App();
