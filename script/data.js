@@ -52,4 +52,11 @@ const creatUserName = function (accounts) {
   );
 };
 
+const calcBalance = function (accounts) {
+  accounts.forEach(
+    (acc) => (acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0))
+  );
+};
+
 creatUserName(accounts);
+calcBalance(accounts);

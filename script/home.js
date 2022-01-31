@@ -20,6 +20,12 @@ const containerMovements = document.querySelector(".movements");
 const containerMovementsInner = document.querySelector(".movements__container");
 
 const btnSort = document.querySelector(".sort");
+const btnTransfer = document.querySelector(".operations__btn--transfer");
+
+const inputTransferAccount = document.querySelector(
+  ".input--transfer-to-account"
+);
+const inputTransferAmount = document.querySelector(".input--transfer-amount");
 /////////////////////////////////////////////////
 
 /////////////////////////////////////////////////
@@ -28,6 +34,38 @@ class App {
     this.account = account;
 
     this._updateUI(this.account);
+
+    // EVENT HANDLERS
+    btnTransfer.addEventListener("click", this._transferMoney.bind(this));
+  }
+
+  _transferMoney(e) {
+    e.preventDefault();
+    const receiverAccount = this._findAccount(inputTransferAccount.value);
+    const amount = +inputTransferAmount.value;
+
+    if (!receiverAccount) return;
+
+    if (!this._ValidateTransferAmount(amount)) {
+      alert("Not Enough Balance");
+      return;
+    }
+
+    this.account.movements.push(-amount);
+    receiverAccount.movements.push(amount);
+    this._updateUI(this.account);
+    this._clearInputsEl(inputTransferAccount, inputTransferAmount);
+  }
+
+  _clearInputsEl(...inputsEl) {
+    inputsEl.forEach((input) => (input.value = ""));
+  }
+
+  _ValidateTransferAmount(amount) {
+    return this.account.balance > amount ? true : false;
+  }
+  _findAccount(account) {
+    return accounts.find((acc) => acc.username === account);
   }
 
   _updateUI(acc) {
@@ -74,11 +112,9 @@ class App {
     // * Display Card Number
     labelCardNumber.textContent = acc.cardNumber;
 
-    // * Display Balance
-    labelBalance.textContent =
-      acc.movements.reduce((acc, mov) => {
-        return acc + mov;
-      }, 0) + `$`;
+    // * Calculate and Display Balance
+    acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
+    labelBalance.textContent = acc.balance + `$`;
   }
 
   //  Display Welcome name
