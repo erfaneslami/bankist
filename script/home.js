@@ -37,6 +37,7 @@ const inputLoanAmount = document.querySelector(".input--loan-amount");
 class App {
   #accounts = [];
   #currentUser;
+  sorted;
   constructor() {
     this._getLocalStorage();
     this._getCurrentUser();
@@ -46,15 +47,16 @@ class App {
     btnTransfer.addEventListener("click", this._transferMoney.bind(this));
     btnClose.addEventListener("click", this._closeAccount.bind(this));
     btnLoan.addEventListener("click", this._getLoan.bind(this));
+    btnSort.addEventListener("click", this._toggleSort.bind(this));
   }
+
+  // ------------ LOCAL STORAGE ------------
 
   _getCurrentUser() {
     const account = JSON.parse(localStorage.getItem("currentAcc"));
-    console.log(account);
     const currentUser = this.#accounts.find(
       (acc) => acc.username === account.username
     );
-    console.log(currentUser);
 
     this.#currentUser = currentUser;
   }
@@ -62,6 +64,22 @@ class App {
   _getLocalStorage() {
     const data = JSON.parse(localStorage.getItem("accounts"));
     this.#accounts = data;
+  }
+
+  // ------------ SORT ------------
+
+  _toggleSort() {
+    if (!this.sorted) {
+      const sortMov = this.#currentUser.movements.slice().sort((a, b) => a - b);
+      this._displayMovements(sortMov);
+      this.sorted = true;
+      return;
+    }
+    if (this.sorted) {
+      this._displayMovements(this.#currentUser.movements);
+      this.sorted = false;
+      return;
+    }
   }
 
   _setLocalStorage() {
@@ -162,16 +180,16 @@ class App {
 
   // ------------ UPDATE UI ------------
   _updateUI(acc) {
-    this._displayMovements(acc);
+    this._displayMovements(acc.movements);
     this._displayCard(acc);
     this._displayWelcomeName(acc);
     this._calcDisplaySummery(acc);
   }
 
   //  Display Movements
-  _displayMovements(acc) {
+  _displayMovements(movements) {
     containerMovementsInner.innerHTML = "";
-    acc.movements.forEach((mov, i) => {
+    movements.forEach((mov, i) => {
       const type = mov > 0 ? `deposit` : `withdrawal`;
 
       containerMovementsInner.insertAdjacentHTML(
