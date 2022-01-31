@@ -131,7 +131,8 @@ body {
     color: var(--color-red); }
 
 .sort {
-  cursor: pointer; }
+  cursor: pointer;
+  align-self: baseline; }
 
 .operation {
   padding: 2rem 0; }
