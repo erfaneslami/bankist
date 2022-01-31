@@ -21,11 +21,14 @@ const containerMovementsInner = document.querySelector(".movements__container");
 
 const btnSort = document.querySelector(".sort");
 const btnTransfer = document.querySelector(".operations__btn--transfer");
+const btnClose = document.querySelector(".operations__btn--close");
 
 const inputTransferAccount = document.querySelector(
   ".input--transfer-to-account"
 );
 const inputTransferAmount = document.querySelector(".input--transfer-amount");
+const inputCloseUsername = document.querySelector(".input--close-account");
+const inputClosePin = document.querySelector(".input--close-pin");
 /////////////////////////////////////////////////
 
 /////////////////////////////////////////////////
@@ -37,8 +40,38 @@ class App {
 
     // EVENT HANDLERS
     btnTransfer.addEventListener("click", this._transferMoney.bind(this));
+    btnClose.addEventListener("click", this._closeAccount.bind(this));
   }
 
+  // ------------ CLOSE ACCOUNT ------------
+
+  _closeAccount(e) {
+    e.preventDefault();
+    const accUsername = inputCloseUsername.value;
+    const accPin = inputClosePin.value;
+    if (!this._allFieldsFill(inputCloseUsername, inputClosePin)) {
+      alert("Please Compleat all the fields");
+      return;
+    }
+
+    if (accUsername !== this.account.username) {
+      alert("Please Enter correct username");
+      return;
+    }
+    if (accPin !== this.account.pin) {
+      alert("Wrong password ! try again");
+      return;
+    }
+
+    const accountIndex = accounts.findIndex(
+      (acc) => acc.username === accUsername
+    );
+    accounts.splice(accountIndex, 1);
+
+    window.location.href = "../index.html";
+  }
+
+  // ------------ TRANSFER ------------
   _transferMoney(e) {
     e.preventDefault();
     const receiverAccount = this._findAccount(inputTransferAccount.value);
@@ -78,6 +111,7 @@ class App {
     return accounts.find((acc) => acc.username === account);
   }
 
+  // ------------ UPDATE UI ------------
   _updateUI(acc) {
     this._displayMovements(acc);
     this._displayCard(acc);
