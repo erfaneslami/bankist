@@ -44,7 +44,14 @@ class App {
     const receiverAccount = this._findAccount(inputTransferAccount.value);
     const amount = +inputTransferAmount.value;
 
-    if (!receiverAccount) return;
+    if (!this._allFieldsFill(inputTransferAccount, inputTransferAmount)) {
+      alert("Please Compleat all the fields");
+      return;
+    }
+    if (!receiverAccount) {
+      alert("Can not Find user");
+      return;
+    }
 
     if (!this._ValidateTransferAmount(amount)) {
       alert("Not Enough Balance");
@@ -57,12 +64,15 @@ class App {
     this._clearInputsEl(inputTransferAccount, inputTransferAmount);
   }
 
+  _allFieldsFill(...inputsEl) {
+    return inputsEl.every((input) => input.value);
+  }
   _clearInputsEl(...inputsEl) {
     inputsEl.forEach((input) => (input.value = ""));
   }
 
   _ValidateTransferAmount(amount) {
-    return this.account.balance > amount ? true : false;
+    return this.account.balance > amount && amount > 0 ? true : false;
   }
   _findAccount(account) {
     return accounts.find((acc) => acc.username === account);
