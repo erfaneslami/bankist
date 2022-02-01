@@ -211,6 +211,8 @@ class App {
     movements.forEach((mov, i) => {
       const type = mov.amount > 0 ? `deposit` : `withdrawal`;
 
+      const date = moment(mov.date).calendar();
+
       containerMovementsInner.insertAdjacentHTML(
         "afterbegin",
         `
@@ -218,7 +220,7 @@ class App {
       <div class="movements__type movements__type--${type}"> ${
           i + 1
         } - ${type}</div>
-        <div class="movements__date">01/01/2021</div>
+        <div class="movements__date">${date}</div>
 
       <div class="movements__value">${mov.amount}</div>
     </div>`
