@@ -100,13 +100,13 @@ class App {
       return;
     }
 
-    const loan = new Movement(amount);
-
-    this.#currentUser.movements.push(
+    const loan = new Movement(
       amount,
       this.#currentUser.id,
       this.#currentUser.owner
     );
+
+    this.#currentUser.movements.push(loan);
     this._updateUI(this.#currentUser);
     this._clearInputsEl(inputLoanAmount);
 
