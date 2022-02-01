@@ -24,7 +24,8 @@ class LoginApp {
     console.log(inputPassword.value);
     const currentUser = this.#accounts.find(
       (acc) =>
-        acc.username === inputUsername.value && acc.pin === inputPassword.value
+        acc.username === inputUsername.value &&
+        acc.password === inputPassword.value
     );
 
     if (!currentUser) {

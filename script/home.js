@@ -94,13 +94,19 @@ class App {
 
     if (
       !(amount > 0) ||
-      !this.#currentUser.movements.some((mov) => mov >= amount * 0.1)
+      !this.#currentUser.movements.some((mov) => mov.amount >= amount * 0.1)
     ) {
       alert("we Are very Sorry , we cant Loan you this much money");
       return;
     }
 
-    this.#currentUser.movements.push(amount);
+    const loan = new Movement(amount);
+
+    this.#currentUser.movements.push(
+      amount,
+      this.#currentUser.id,
+      this.#currentUser.owner
+    );
     this._updateUI(this.#currentUser);
     this._clearInputsEl(inputLoanAmount);
 
@@ -122,7 +128,7 @@ class App {
       alert("Please Enter correct username");
       return;
     }
-    if (accPin !== this.#currentUser.pin) {
+    if (accPin !== this.#currentUser.password) {
       alert("Wrong password ! try again");
       return;
     }
@@ -157,8 +163,21 @@ class App {
       return;
     }
 
-    this.#currentUser.movements.push(-amount);
-    receiverAccount.movements.push(amount);
+    const senderMovement = new Movement(
+      -amount,
+      this.#currentUser.id,
+      receiverAccount.owner,
+      this.#currentUser.owner
+    );
+    const receiverMovement = new Movement(
+      amount,
+      receiverAccount.id,
+      receiverAccount.owner,
+      this.#currentUser.owner
+    );
+
+    this.#currentUser.movements.push(senderMovement);
+    receiverAccount.movements.push(receiverMovement);
     this._updateUI(this.#currentUser);
     this._clearInputsEl(inputTransferAccount, inputTransferAmount);
     this._setLocalStorage();
@@ -190,7 +209,7 @@ class App {
   _displayMovements(movements) {
     containerMovementsInner.innerHTML = "";
     movements.forEach((mov, i) => {
-      const type = mov > 0 ? `deposit` : `withdrawal`;
+      const type = mov.amount > 0 ? `deposit` : `withdrawal`;
 
       containerMovementsInner.insertAdjacentHTML(
         "afterbegin",
@@ -201,7 +220,7 @@ class App {
         } - ${type}</div>
         <div class="movements__date">01/01/2021</div>
 
-      <div class="movements__value">${mov}</div>
+      <div class="movements__value">${mov.amount}</div>
     </div>`
       );
     });
@@ -226,7 +245,7 @@ class App {
     labelCardNumber.textContent = acc.cardNumber;
 
     // * Calculate and Display Balance
-    acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
+    acc.balance = acc.movements.reduce((acc, mov) => acc + mov.amount, 0);
     labelBalance.textContent = acc.balance + `$`;
   }
 
@@ -240,15 +259,15 @@ class App {
     //  INCOME
     labelIncome.textContent =
       acc.movements
-        .filter((mov) => mov > 0)
-        .reduce((acc, deposit) => acc + deposit, 0) + `$`;
+        .filter((mov) => mov.amount > 0)
+        .reduce((acc, deposit) => acc + deposit.amount, 0) + `$`;
 
     //  OUT COME
     labelOutcome.textContent =
       Math.abs(
         acc.movements
-          .filter((mov) => mov < 0)
-          .reduce((acc, deposit) => acc + deposit, 0)
+          .filter((mov) => mov.amount < 0)
+          .reduce((acc, deposit) => acc + deposit.amount, 0)
       ) + `$`;
 
     //  INTEREST
