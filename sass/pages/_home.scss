@@ -97,7 +97,17 @@
     border-bottom: 1px solid var(--primary-color);
   }
 
+  &__date {
+    margin-left: 1rem;
+    font-size: 1.2rem;
+  }
+
+  &__value {
+    margin-left: auto;
+  }
+
   &__type {
+    width: 12rem;
     &--deposit {
       color: var(--color-green);
     }
