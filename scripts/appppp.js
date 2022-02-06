@@ -1,8 +1,8 @@
 "use strict";
 
-const inputUsername = document.querySelector(".login__box_input--username");
-const inputPassword = document.querySelector(".login__box_input--password");
-const btnLogin = document.querySelector(".login__box_btn");
+const inputEmail = document.querySelector(".enter__form-input--email");
+const inputPassword = document.querySelector(".enter__form-input--password");
+const btnLogin = document.querySelector(".enter__form-btn");
 
 class LoginApp {
   #accounts = [];

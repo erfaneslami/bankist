@@ -2,11 +2,11 @@
 
 class Movement {
   date = moment().format();
-  constructor(amount, accountID, receiver = accountID, sender = "Bank") {
+  status;
+  constructor(amount, accountID, description) {
     this.amount = amount;
     this.accountID = accountID;
-    this.sender = sender;
-    this.receiver = receiver;
+    this.description = description;
   }
 }
 
@@ -15,9 +15,9 @@ class Account {
   id = (Math.random() * 10 + " ").slice(-8);
   movements = [];
 
-  constructor(owner, username, password, cardNumber, balance) {
-    this.owner = owner;
-    this.username = username;
+  constructor(fullName, email, password, cardNumber) {
+    this.fullName = fullName;
+    this.email = email;
     this.password = password;
     this.cardNumber = cardNumber;
     this.balance = balance;
@@ -26,7 +26,7 @@ class Account {
   }
 
   _firstIncome() {
-    this.movements.push(new Movement(2000, this.id, this.owner));
+    this.movements.push(new Movement(2000, this.id, "Bank gift"));
   }
 }
 
@@ -41,21 +41,21 @@ class DataBase {
     //  ------------- TEST DATA -----------------
     const account01 = new Account(
       "erfan eslami",
-      "eeslami",
+      "erfan_eslami@icloud.com",
       "erfan123",
       `6219 6426 1325 9988`
     );
 
     const account02 = new Account(
       "Alireza eslami",
-      "aeslami",
+      "alireza.eslami23@gmail.com",
       "alireza123",
       `5024 5644 5236 9956`
     );
 
     const account03 = new Account(
       "Nioofar najafi",
-      "nnajafi",
+      "niloofar_najafi@icloud.com",
       "niloo123",
       `6037 1236 8526 1235`
     );
