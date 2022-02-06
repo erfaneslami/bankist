@@ -20,12 +20,11 @@ class LoginApp {
   _logIn(e) {
     e.preventDefault();
 
-    console.log(inputUsername.value);
+    console.log(inputEmail.value);
     console.log(inputPassword.value);
     const currentUser = this.#accounts.find(
       (acc) =>
-        acc.username === inputUsername.value &&
-        acc.password === inputPassword.value
+        acc.email === inputEmail.value && acc.password === inputPassword.value
     );
 
     if (!currentUser) {
@@ -34,7 +33,7 @@ class LoginApp {
     }
 
     localStorage.setItem("currentAcc", JSON.stringify(currentUser));
-    window.location.href = "../home.html";
+    window.location.href = "../app.html";
   }
 }
 

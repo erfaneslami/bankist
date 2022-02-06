@@ -20,7 +20,7 @@ class Account {
     this.email = email;
     this.password = password;
     this.cardNumber = cardNumber;
-    this.balance = balance;
+    this.balance;
 
     this._firstIncome();
   }
