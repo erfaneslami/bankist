@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "compile:sass": "node-sass sass/main.scss css/style.css -w"
+    "compile:sass:app": "node-sass sass/app.scss css/app.css -w",
+    "compile:sass:login": "node-sass sass/login.scss css/login.css -w"
   },
   "repository": {
     "type": "git",

@@ -1,77 +1,118 @@
-.login {
-  height: 100vh;
-  display: grid;
-  grid-template-columns: 5fr 2fr;
+.hero {
+  background-color: var(--color-gray-light);
 
-  &__left {
-    background-color: var(--primary-color);
-    padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  &__logo {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    &_textbox {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
+    align-items: center;
+    gap: 2rem;
 
-      h1 {
-        font-size: 6rem;
-        font-weight: 400;
+    &_heading {
+      color: var(--color-gray-light-2);
+      font-weight: 400;
+    }
+  }
+
+  &__img {
+    width: 45rem;
+  }
+}
+.enter {
+  background-color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  &__heading {
+    margin-top: 7rem;
+    font-size: 3.6rem;
+    font-weight: 500;
+    color: var(--color-gray-1);
+
+    span {
+      font-size: 2.2rem;
+      font-weight: 500;
+      color: var(--color-gray-light-2);
+      cursor: pointer;
+    }
+
+    &--active {
+      font-size: 3.4rem !important;
+      color: var(--color-gray-1) !important;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    width: 60%;
+    margin: 0 auto;
+
+    &-input {
+      border: none;
+      border-bottom: 1px solid var(--color-gray-light-2);
+      background-color: none;
+      font-size: 2rem;
+      padding: 1rem 1rem;
+      margin-bottom: 5rem;
+      color: var(--color-gray-1);
+
+      &::placeholder {
+        font-family: inherit;
+        color: var(--color-gray-light-2);
+      }
+
+      &:focus {
+        outline: transparent;
+        border-bottom: 1px solid var(--color-purple-dark);
       }
     }
 
-    img {
-      height: 35rem;
+    &-btn {
+      width: 35%;
+      border: none;
+      margin: 0 auto;
+      font-size: 2rem;
+      padding: 1rem 1rem;
+      color: var(--color-white);
+      background-color: var(--color-purple-dark);
+      border-radius: 1.5rem;
+      cursor: pointer;
     }
-    &_logo {
-      height: 10rem !important;
+
+    &-hint {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 1.4rem;
+      color: var(--color-gray-light-2);
+
+      a {
+        color: var(--color-gray-1);
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
 
-  &__right {
-    background-color: var(--primary-color-gray);
-    display: flex;
-    align-items: center;
-  }
+  &__copyright {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--color-gray-light-2);
 
-  &__box {
-    width: 30vw;
-    padding: 3rem;
-    border-radius: 11px;
-    transform: translateX(-20rem);
-    background-color: var(--primary-color-gray2);
-
-    display: flex;
-    flex-direction: column;
-    gap: 5rem;
-
-    box-shadow: 11px 11px 18px #09090f;
-    &_logo {
-      height: 5rem;
-
-      align-self: start;
-    }
-
-    &_welcome {
-      font-size: 4.2rem;
-    }
-
-    &_form {
-      display: flex;
-      flex-direction: column;
-      // align-items: flex-start;
-      justify-content: space-between;
-      gap: 2rem;
-    }
-
-    &_input {
-      background-color: var(--primary-color-gray);
-      border: 1px solid var(--primary-color);
-      font-size: 1.8rem;
-      padding: 1.5rem 1rem;
-      border-radius: 11px;
-      color: var(--primary-color-light);
+    span {
+      color: var(--color-gray-1);
+      font-weight: 500;
     }
   }
 }

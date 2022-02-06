@@ -1,0 +1,16 @@
+body {
+  padding: 2rem;
+  background-color: var(--color-bg);
+}
+.app-container {
+  display: grid;
+  grid-template-columns: 43fr 57fr;
+
+  margin: 0 auto;
+  height: calc(100vh - 4rem);
+  // height: 120%;
+  max-width: 140rem;
+  border-radius: 3.5rem;
+  overflow: hidden;
+  background-color: #fff;
+}

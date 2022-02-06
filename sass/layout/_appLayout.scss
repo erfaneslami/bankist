@@ -1,0 +1,17 @@
+body {
+  padding: 2rem;
+  background-color: var(--color-bg);
+}
+
+.app-container {
+  display: grid;
+  grid-template-rows: [header-start] 6rem [header-end body-start] 1fr [body-end];
+  grid-template-columns: [nav-start] 18rem [nav-end body-start] 1fr [body-end];
+
+  margin: 0 auto;
+  height: calc(100vh - 4rem);
+  // height: 120%;
+  max-width: 140rem;
+  border-radius: 3.5rem;
+  overflow: hidden;
+}
