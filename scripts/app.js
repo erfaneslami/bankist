@@ -6,7 +6,7 @@ const myChart = new Chart(ctx, {
     datasets: [
       {
         label: "# of Votes",
-        data: [15000, 3000],
+        data: [2000, 0],
         backgroundColor: [
           // "rgba(255, 206, 86, 0.0)",
           "#ba66f9",

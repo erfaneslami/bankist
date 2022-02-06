@@ -7,30 +7,49 @@
 /////////////////////////////////////////////////
 
 /////////////////////////////////////////////////
-const labelBalance = document.querySelector(".card__balance_value");
-const labelOwner = document.querySelector(".card__owner");
-const labelCardNumber = document.querySelector(".card__number");
-const labelBankName = document.querySelector(".card__name");
-const labelWelcome = document.querySelector(".header__welcome");
-const labelIncome = document.querySelector(".summery__value--in");
-const labelOutcome = document.querySelector(".summery__value--out");
-const labelInterest = document.querySelector(".summery__value--interest");
-
-const containerMovements = document.querySelector(".movements");
-const containerMovementsInner = document.querySelector(".movements__container");
-
-const btnSort = document.querySelector(".sort");
-const btnTransfer = document.querySelector(".operations__btn--transfer");
-const btnClose = document.querySelector(".operations__btn--close");
-const btnLoan = document.querySelector(".operations__btn--loan");
-
-const inputTransferAccount = document.querySelector(
-  ".input--transfer-to-account"
+const labelBalanceHeader = document.querySelector(".header__balance_amount");
+const labelBalanceSummery = document.querySelector(".balance-sammery__balance");
+const labelBalanceDetail = document.querySelector(
+  ".card-detail__value--balance"
 );
-const inputTransferAmount = document.querySelector(".input--transfer-amount");
-const inputCloseUsername = document.querySelector(".input--close-account");
-const inputClosePin = document.querySelector(".input--close-pin");
-const inputLoanAmount = document.querySelector(".input--loan-amount");
+
+const labelFullNameCard = document.querySelector(".card__owner");
+const labelFullNameHeader = document.querySelector(
+  ".header__profile_info_name"
+);
+
+const labelCardNumberCard = document.querySelector(".card__number");
+const labelCardNumberDetail = document.querySelector(
+  ".card-detail__value--card-number"
+);
+
+const labelBankName = document.querySelector(".card__bank-name");
+
+const labelIncome = document.querySelector(".balance-sammery__income");
+const labelExpense = document.querySelector(".balance-sammery__expense");
+
+const containerTransaction = document.querySelector(".transaction__container");
+
+// TODO
+// const btnSort = document.querySelector(".sort");
+// TODO
+// const btnTransfer = document.querySelector(".operations__btn--transfer");
+// TODO
+// const btnClose = document.querySelector(".operations__btn--close");
+// TODO
+// const btnLoan = document.querySelector(".operations__btn--loan");
+// TODO
+// const inputTransferAccount = document.querySelector(
+//   ".input--transfer-to-account"
+// );
+// TODO
+// const inputTransferAmount = document.querySelector(".input--transfer-amount");
+// TODO
+// const inputCloseUsername = document.querySelector(".input--close-account");
+// TODO
+// const inputClosePin = document.querySelector(".input--close-pin");
+// TODO
+// const inputLoanAmount = document.querySelector(".input--loan-amount");
 /////////////////////////////////////////////////
 
 /////////////////////////////////////////////////
@@ -44,10 +63,14 @@ class App {
     this._updateUI(this.#currentUser);
 
     // EVENT HANDLERS
-    btnTransfer.addEventListener("click", this._transferMoney.bind(this));
-    btnClose.addEventListener("click", this._closeAccount.bind(this));
-    btnLoan.addEventListener("click", this._getLoan.bind(this));
-    btnSort.addEventListener("click", this._toggleSort.bind(this));
+    //TODO
+    // btnTransfer.addEventListener("click", this._transferMoney.bind(this));
+    //TODO
+    // btnClose.addEventListener("click", this._closeAccount.bind(this));
+    //TODO
+    // btnLoan.addEventListener("click", this._getLoan.bind(this));
+    //TODO
+    // btnSort.addEventListener("click", this._toggleSort.bind(this));
   }
 
   // ------------ LOCAL STORAGE ------------
@@ -55,7 +78,7 @@ class App {
   _getCurrentUser() {
     const account = JSON.parse(localStorage.getItem("currentAcc"));
     const currentUser = this.#accounts.find(
-      (acc) => acc.username === account.username
+      (acc) => acc.email === account.email
     );
 
     this.#currentUser = currentUser;
@@ -103,7 +126,7 @@ class App {
     const loan = new Movement(
       amount,
       this.#currentUser.id,
-      this.#currentUser.owner
+      this.#currentUser.fullName
     );
 
     this.#currentUser.movements.push(loan);
@@ -166,14 +189,14 @@ class App {
     const senderMovement = new Movement(
       -amount,
       this.#currentUser.id,
-      receiverAccount.owner,
-      this.#currentUser.owner
+      receiverAccount.fullName,
+      this.#currentUser.fullName
     );
     const receiverMovement = new Movement(
       amount,
       receiverAccount.id,
-      receiverAccount.owner,
-      this.#currentUser.owner
+      receiverAccount.fullName,
+      this.#currentUser.fullName
     );
 
     this.#currentUser.movements.push(senderMovement);
@@ -201,29 +224,25 @@ class App {
   _updateUI(acc) {
     this._displayMovements(acc.movements);
     this._displayCard(acc);
-    this._displayWelcomeName(acc);
+
     this._calcDisplaySummery(acc);
   }
 
   //  Display Movements
   _displayMovements(movements) {
-    containerMovementsInner.innerHTML = "";
+    containerTransaction.innerHTML = "";
     movements.forEach((mov, i) => {
-      const type = mov.amount > 0 ? `deposit` : `withdrawal`;
-
       const date = moment(mov.date).calendar();
 
-      containerMovementsInner.insertAdjacentHTML(
+      containerTransaction.insertAdjacentHTML(
         "afterbegin",
-        `
-    <div class="movements__row">
-      <div class="movements__type movements__type--${type}"> ${
-          i + 1
-        } - ${type}</div>
-        <div class="movements__date">${date}</div>
-
-      <div class="movements__value">${mov.amount}</div>
-    </div>`
+        `            
+        <li>
+          <span class="transaction__descrption">${mov.description}</span>
+          <span class="transaction__time">${date}</span>
+          <span class="transaction__status">${mov.status}</span>
+          <span class="transaction__amount">${mov.amount} R</span>
+        </li>`
       );
     });
   }
@@ -233,27 +252,26 @@ class App {
     // * Display Bank Name
     labelBankName.textContent =
       acc.cardNumber.slice(0, 4) === `6219`
-        ? `Saman Bank`
+        ? `Saman`
         : acc.cardNumber.slice(0, 4) === `5024`
-        ? `Pasargad Bank`
+        ? `Pasargad `
         : acc.cardNumber.slice(0, 4) === `6037`
-        ? `Saderat Bank`
+        ? `Saderat `
         : `un known Bank`;
 
-    // * Display Owner Name
-    labelOwner.textContent = acc.owner;
+    // * Display fullName Name
+    labelFullNameCard.textContent = acc.fullName;
+    labelFullNameHeader.textContent = acc.fullName;
 
     // * Display Card Number
-    labelCardNumber.textContent = acc.cardNumber;
+    labelCardNumberCard.textContent = acc.cardNumber;
+    labelCardNumberDetail.textContent = acc.cardNumber;
 
     // * Calculate and Display Balance
     acc.balance = acc.movements.reduce((acc, mov) => acc + mov.amount, 0);
-    labelBalance.textContent = acc.balance + `$`;
-  }
-
-  //  Display Welcome name
-  _displayWelcomeName(acc) {
-    labelWelcome.textContent = `Hi ${acc.owner.split(" ")[0]} !`;
+    labelBalanceSummery.textContent = acc.balance + `R`;
+    labelBalanceHeader.textContent = acc.balance + `R`;
+    labelBalanceDetail.textContent = acc.balance + `R`;
   }
 
   //  DISPLAY SUMMERY
@@ -262,23 +280,15 @@ class App {
     labelIncome.textContent =
       acc.movements
         .filter((mov) => mov.amount > 0)
-        .reduce((acc, deposit) => acc + deposit.amount, 0) + `$`;
+        .reduce((acc, deposit) => acc + deposit.amount, 0) + `R`;
 
     //  OUT COME
-    labelOutcome.textContent =
+    labelExpense.textContent =
       Math.abs(
         acc.movements
           .filter((mov) => mov.amount < 0)
           .reduce((acc, deposit) => acc + deposit.amount, 0)
-      ) + `$`;
-
-    //  INTEREST
-    labelInterest.textContent =
-      acc.movements
-        .filter((mov) => mov > 0)
-        .map((deposit) => (deposit * acc.interestRate) / 100)
-        .filter((int) => int > 1)
-        .reduce((acc, int) => acc + int, 0) + `$`;
+      ) + `R`;
   }
 }
 /////////////////////////////////////////////////

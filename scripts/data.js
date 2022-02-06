@@ -2,11 +2,12 @@
 
 class Movement {
   date = moment().format();
-  status;
+
   constructor(amount, accountID, description) {
     this.amount = amount;
     this.accountID = accountID;
     this.description = description;
+    this.status = "Successfully";
   }
 }
 

@@ -13,6 +13,13 @@
     />
 
     <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"
+      integrity="sha512-LGXaggshOkD/at6PFNcp2V2unf9LzFq6LE+sChH7ceMTDP0g2kn6Vxwgg7wkPP7AAtX+lmPqPdxB47A0Nz0cMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script
       type="module"
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
     ></script>
@@ -30,7 +37,9 @@
       referrerpolicy="no-referrer"
     ></script>
 
+    <script defer src="scripts/data.js"></script>
     <script defer src="scripts/app.js"></script>
+    <script defer src="scripts/home.js"></script>
 
     <title>Bankist</title>
   </head>
@@ -156,9 +165,18 @@
           </div>
           <div class="balance-sammery__details">
             <ul>
-              <li><span> Balance : </span> <span> 12,000</span></li>
-              <li><span> Income : </span> <span> 15,000</span></li>
-              <li><span> Expenses : </span> <span> 3,000</span></li>
+              <li>
+                <span> Balance : </span>
+                <span class="balance-sammery__balance"> 12,000</span>
+              </li>
+              <li>
+                <span> Income : </span>
+                <span class="balance-sammery__income"> 15,000</span>
+              </li>
+              <li>
+                <span> Expenses : </span>
+                <span class="balance-sammery__expense"> 3,000</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -171,7 +189,9 @@
             </li>
             <li>
               <span class="card-detail__head">Account</span>
-              <span class="card-detail__value">6219 8610 4429 5383</span>
+              <span class="card-detail__value card-detail__value--card-number"
+                >6219 8610 4429 5383</span
+              >
             </li>
             <li>
               <span class="card-detail__head">Status</span>
@@ -179,7 +199,9 @@
             </li>
             <li>
               <span class="card-detail__head">Balance</span>
-              <span class="card-detail__value">12,000 R</span>
+              <span class="card-detail__value card-detail__value--balance"
+                >12,000 R</span
+              >
             </li>
           </ul>
         </div>
@@ -194,7 +216,7 @@
               ><span class="transaction__heads__amount">Amount</span>
             </li>
           </ul>
-          <ul>
+          <ul class="transaction__container">
             <li>
               <span class="transaction__descrption">Namava</span
               ><span class="transaction__time"> Today at 12:30 </span
