@@ -26,6 +26,12 @@ const labelBankName = document.querySelector(".card__bank-name");
 const labelIncome = document.querySelector(".balance-sammery__income");
 const labelExpense = document.querySelector(".balance-sammery__expense");
 
+const btnFilterWeek = document.querySelector(".filter--week");
+const btnFilterMonth = document.querySelector(".filter--month");
+const btnFilterYear = document.querySelector(".filter--year");
+
+const filtersContainer = document.querySelector(".filters");
+
 const ctx = document.getElementById("myChart").getContext("2d");
 
 const containerTransaction = document.querySelector(".transaction__container");
@@ -56,6 +62,7 @@ const containerTransaction = document.querySelector(".transaction__container");
 class App {
   #accounts = [];
   #currentUser;
+  #myChart;
   sorted;
   constructor() {
     this._getLocalStorage();
@@ -63,6 +70,9 @@ class App {
     this._updateUI(this.#currentUser);
 
     // EVENT HANDLERS
+
+    filtersContainer.addEventListener("click", this._filterChart.bind(this));
+
     //TODO
     // btnTransfer.addEventListener("click", this._transferMoney.bind(this));
     //TODO
@@ -226,7 +236,8 @@ class App {
     this._displayCard(acc);
     this._displayProfileInfo(acc);
     this._displayCardDetails(acc);
-    this._calcDisplaySummery(acc);
+    this._calcDisplaySummery(acc.movements);
+    this._calcDisplayChart(acc.movements);
   }
 
   //  Display Movements
@@ -288,9 +299,10 @@ class App {
   }
 
   //  DISPLAY SUMMERY
-  _calcDisplaySummery(acc) {
-    const income = this._calcIncome(acc.movements);
-    const expense = Math.abs(this._calcExpense(acc.movements));
+  _calcDisplaySummery(movements) {
+    const income = this._calcIncome(movements);
+    const expense = Math.abs(this._calcExpense(movements));
+    const balance = this._calcBalance(movements);
     //  INCOME
     labelIncome.textContent = income + `R`;
 
@@ -298,9 +310,64 @@ class App {
     labelExpense.textContent = expense + `R`;
 
     //  BALANCE
-    labelBalanceSummery.textContent = acc.balance + `R`;
+    labelBalanceSummery.textContent = balance + `R`;
+  }
 
-    const myChart = new Chart(ctx, {
+  _calcDisplayChart(movements) {
+    const income = this._calcIncome(movements);
+    const expense = Math.abs(this._calcExpense(movements));
+    this._creatChart(income, expense);
+  }
+
+  _filterChart(e) {
+    const now = moment();
+    if (e.target.classList.contains("filter--week")) {
+      const lastWeek = moment().subtract(7, "days");
+
+      const movements = this.#currentUser.movements.filter((mov) => {
+        return moment(mov.date).isBetween(lastWeek, now);
+      });
+
+      const income = this._calcIncome(movements);
+      const expense = this._calcExpense(movements);
+
+      this._calcDisplaySummery(movements);
+      this.#myChart.destroy();
+      this._creatChart(income, expense);
+    }
+
+    if (e.target.classList.contains("filter--month")) {
+      const lastWeek = moment().subtract(30, "days");
+
+      const movements = this.#currentUser.movements.filter((mov) => {
+        return moment(mov.date).isBetween(lastWeek, now);
+      });
+
+      const income = this._calcIncome(movements);
+      const expense = this._calcExpense(movements);
+
+      this._calcDisplaySummery(movements);
+      this.#myChart.destroy();
+      this._creatChart(income, expense);
+    }
+    if (e.target.classList.contains("filter--year")) {
+      const lastWeek = moment().subtract(365, "days");
+
+      const movements = this.#currentUser.movements.filter((mov) => {
+        return moment(mov.date).isBetween(lastWeek, now);
+      });
+
+      const income = this._calcIncome(movements);
+      const expense = this._calcExpense(movements);
+
+      this._calcDisplaySummery(movements);
+      this.#myChart.destroy();
+      this._creatChart(income, expense);
+    }
+  }
+
+  _creatChart(income, expense) {
+    this.#myChart = new Chart(ctx, {
       type: "doughnut",
       data: {
         labels: ["Income", "Expense"],
