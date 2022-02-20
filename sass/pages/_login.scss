@@ -50,11 +50,15 @@
   }
 
   &__form {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-self: stretch;
     width: 60%;
     margin: 0 auto;
+
+    &--active {
+      display: flex;
+    }
 
     &-input {
       border: none;

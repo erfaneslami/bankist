@@ -106,13 +106,13 @@
       </section>
       <section class="enter">
         <h2 class="enter__heading">
-          <span class="enter__heading-login enter__heading--active"
-            >Login
-          </span>
+          <span class="enter__heading-login">Login </span>
           /
-          <span class="enter__heading-signup"> Signup</span>
+          <span class="enter__heading-signup enter__heading--active">
+            Signup</span
+          >
         </h2>
-        <form class="enter__form" action="#">
+        <form class="enter__form enter__form--active" action="#">
           <input
             class="enter__form-input enter__form-input--email"
             placeholder="Email"
@@ -131,6 +131,32 @@
           <p class="enter__form-hint">
             Don't have an account ? <a href="#">Sign up</a> now
           </p>
+        </form>
+
+        <!-- sign UP -->
+        <form class="enter__form" action="#">
+          <input
+            class="enter__form-input enter__form-input--email"
+            placeholder="Full name"
+            type="text"
+            name="fullName"
+            id="fullName"
+          />
+          <input
+            class="enter__form-input enter__form-input--email"
+            placeholder="Email"
+            type="email"
+            name="email"
+            id="email"
+          />
+          <input
+            class="enter__form-input enter__form-input--password"
+            placeholder="Password"
+            type="password"
+            name="password"
+            id=""
+          />
+          <button class="enter__form-btn" type="submit">Sign up</button>
         </form>
         <p class="enter__copyright">
           ©️2022 Designed and Developed by <span> Erfan Eslami </span>
