@@ -1,5 +1,26 @@
+.bg {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  background-color: var(--color-bg);
+}
+
+.app-container {
+  display: grid;
+  grid-template-columns: 43fr 57fr;
+
+  margin: 0 auto;
+  height: 70rem;
+  // height: 120%;
+  min-width: 140rem;
+  border-radius: 3.5rem;
+  overflow: hidden;
+  // background-color: #fff;
+}
+
 .hero {
-  background-color: var(--color-gray-light);
+  background-color: var(--color-white);
 
   display: flex;
   flex-direction: column;
@@ -50,10 +71,12 @@
   }
 
   &__form {
+    width: 100%;
+    width: 40rem;
     display: none;
     flex-direction: column;
-    align-self: stretch;
-    width: 60%;
+    // align-self: flex-start;
+    // width: 60%;
     margin: 0 auto;
 
     &--active {
