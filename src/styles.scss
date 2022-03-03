@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --color-gray-dark: #373737;
+  --color-gray-1: #707070;
+  --color-gray-light: #f0f0fa;
+  --color-gray-light-2: #acacac;
+  --color-purple: #ba66f9;
+  --color-purple-dark: #7266fa;
+  --color-blue: #03a9f4;
+  --color-red: #d93636;
+  --color-bg: #3f3d56;
+  --color-white: #f4f5f9;
+
+  --border-radius: 1.2rem;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+  font-weight: 400;
+}
