@@ -8,6 +8,8 @@ import { EntranceComponent } from './entrance/entrance.component';
 import { LoginComponent } from './entrance/login/login.component';
 import { SignupComponent } from './entrance/signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { IonicModule } from '@ionic/angular';
+import { HomeComponent } from './dashboard/home/home.component';
 
 @NgModule({
   declarations: [
@@ -16,8 +18,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     LoginComponent,
     SignupComponent,
     DashboardComponent,
+    HomeComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, IonicModule.forRoot()],
   providers: [],
   bootstrap: [AppComponent],
 })
