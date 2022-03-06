@@ -1,10 +1,15 @@
-<form class="enter__form enter__form--active" action="#">
+<form
+  class="enter__form enter__form--active"
+  [formGroup]="loginForm"
+  (ngSubmit)="onLogin()"
+>
   <input
     class="enter__form-input enter__form-input--email"
     placeholder="Email"
     type="email"
     name="email"
     id="email"
+    formControlName="email"
   />
   <input
     class="enter__form-input enter__form-input--password"
@@ -12,6 +17,7 @@
     type="password"
     name="password"
     id=""
+    formControlName="password"
   />
   <button class="enter__form-btn" type="submit">Sign in</button>
   <p class="enter__form-hint">
