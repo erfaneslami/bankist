@@ -1,5 +1,5 @@
 <main>
-  <div class="card">
+  <!-- <div class="card">
     <p class="card__bank-name">Saman</p>
     <p class="card__number">6219 8610 4429 5383</p>
     <div class="card__info">
@@ -7,10 +7,11 @@
       <p class="card__cvv">654</p>
       <p class="card__exp">07/05</p>
     </div>
-  </div>
+  </div> -->
+  <app-card></app-card>
 
-  <div class="balance-sammery">
-    <div class="balance-sammery__filters">
+  <!-- <div class="balance-sammery"> -->
+  <!-- <div class="balance-sammery__filters">
       <ul class="filters">
         <li class="filter--week">Week</li>
         <li class="filter--month">Month</li>
@@ -35,11 +36,12 @@
           <span class="balance-sammery__expense"> 3,000</span>
         </li>
       </ul>
-    </div>
-  </div>
+    </div> -->
+  <!-- </div> -->
+  <app-balance-chart></app-balance-chart>
 
-  <div class="card-detail">
-    <ul>
+  <!-- <div class="card-detail"> -->
+  <!-- <ul>
       <li>
         <span class="card-detail__head">ID</span>
         <span class="card-detail__value card-detail__value--ID">545612358</span>
@@ -60,11 +62,14 @@
           >12,000 R</span
         >
       </li>
-    </ul>
-  </div>
+    </ul> -->
+  <!-- </div> -->
 
-  <div class="transaction">
-    <h2 class="transaction__heading">Last Transactions</h2>
+  <app-account-detail></app-account-detail>
+
+  <app-transactions></app-transactions>
+  <!-- <div class="transaction"> -->
+  <!-- <h2 class="transaction__heading">Last Transactions</h2>
     <ul class="transaction__heads">
       <li>
         <span class="transaction__heads__descrption">Description</span
@@ -126,6 +131,6 @@
         ><span class="transaction__status">Successfully</span
         ><span class="transaction__amount">30,000 R</span>
       </li>
-    </ul>
-  </div>
+    </ul> -->
+  <!-- </div> -->
 </main>
