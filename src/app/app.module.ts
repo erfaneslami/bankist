@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { EntranceComponent } from './entrance/entrance.component';
 import { LoginComponent } from './entrance/login/login.component';
 import { SignupComponent } from './entrance/signup/signup.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { SignupComponent } from './entrance/signup/signup.component';
     EntranceComponent,
     LoginComponent,
     SignupComponent,
+    DashboardComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],
