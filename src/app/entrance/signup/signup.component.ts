@@ -9,6 +9,7 @@ import { AuthService } from '../auth.service';
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
+  errorMessage: string = null;
 
   constructor(private authService: AuthService) {}
 
@@ -23,8 +24,14 @@ export class SignupComponent implements OnInit {
   onSignup() {
     console.log(this.signupForm.value);
     const form = this.signupForm.value;
-    this.authService.signup(form.email, form.password).subscribe((response) => {
-      console.log(response);
+    this.authService.signup(form.email, form.password).subscribe({
+      next: (response) => {
+        console.log(response);
+      },
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.error.error.message;
+      },
     });
   }
 }

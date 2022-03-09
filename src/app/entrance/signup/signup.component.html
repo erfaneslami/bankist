@@ -3,6 +3,7 @@
   [formGroup]="signupForm"
   (ngSubmit)="onSignup()"
 >
+  <p *ngIf="errorMessage">{{ errorMessage }}</p>
   <input
     class="enter__form-input enter__form-input--email"
     placeholder="Full name"

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +12,18 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   signup(email: string, password: string) {
-    return this.http.post(`${this.SIGNUP_URL + this.API_KEY}`, {
-      email: email,
-      password: password,
-      returnSecureToken: true,
-    });
+    return this.http
+      .post(`${this.SIGNUP_URL + this.API_KEY}`, {
+        email: email,
+        password: password,
+        returnSecureToken: true,
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError(() => {
+            return error;
+          });
+        })
+      );
   }
 }
