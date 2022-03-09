@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,7 +29,13 @@ import { AccountDetailComponent } from './dashboard/home/account-detail/account-
     CardComponent,
     AccountDetailComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, IonicModule.forRoot()],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    IonicModule.forRoot(),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

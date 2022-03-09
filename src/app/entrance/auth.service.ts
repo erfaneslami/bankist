@@ -1,0 +1,20 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class authService {
+  API_KEY = 'AIzaSyDcloVBMNtVEejTLfNVLRiJbKKWUfjgUmI';
+  SIGNUP_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
+
+  constructor(private http: HttpClient) {}
+
+  signup(email: string, password: string) {
+    this.http.post(`${this.SIGNUP_URL + this.API_KEY}`, {
+      email: email,
+      password: password,
+      returnSecureToken: true,
+    });
+  }
+}
