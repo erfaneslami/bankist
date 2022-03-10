@@ -35,14 +35,18 @@ export class SignupComponent implements OnInit {
 
   onSignup() {
     console.log(this.signupForm);
+    if (!this.signupForm.valid) {
+      this.signupForm.markAllAsTouched();
+      return;
+    }
     const form = this.signupForm.value;
     this.authService.signup(form.email, form.password).subscribe({
       next: (response) => {
         console.log(response);
       },
-      error: (error) => {
-        console.log(error);
-        this.errorMessage = error.error.error.message;
+      error: (errorMessage) => {
+        console.log(errorMessage);
+        this.errorMessage = errorMessage;
       },
     });
   }

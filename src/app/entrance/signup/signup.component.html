@@ -12,6 +12,9 @@
     id="fullName"
     formControlName="fullName"
   />
+  <p *ngIf="email.touched && !email.valid">
+    please enter a valid email address
+  </p>
   <input
     class="enter__form-input enter__form-input--email"
     placeholder="Email"
@@ -20,8 +23,11 @@
     id="email"
     formControlName="email"
   />
-  <p *ngIf="email.touched && !email.valid">
-    please enter a valid email address
+  <p *ngIf="password.touched && password.errors?.['minlength']">
+    password must have at least 6 characters
+  </p>
+  <p *ngIf="password.touched && password.errors?.['required']">
+    please enter a password
   </p>
   <input
     class="enter__form-input enter__form-input--password"
@@ -31,8 +37,5 @@
     id=""
     formControlName="password"
   />
-  <p *ngIf="password.touched && password.errors">
-    password must have at least 6 characters
-  </p>
   <button class="enter__form-btn" type="submit">Sign up</button>
 </form>
