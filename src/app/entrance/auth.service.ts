@@ -58,7 +58,7 @@ export class AuthService {
 
   login(email: string, password: string) {
     return this.http
-      .post(`${this.LOGIN_URL + this.API_KEY} `, {
+      .post<AuthResponseData>(`${this.LOGIN_URL + this.API_KEY} `, {
         email: email,
         password: password,
         returnSecureToken: true,
@@ -66,8 +66,44 @@ export class AuthService {
       .pipe(
         catchError((error) => {
           return this.handleError(error);
+        }),
+        tap((response) => {
+          this.handleLogin(
+            response.localId,
+            response.idToken,
+            +response.expiresIn
+          );
         })
       );
+  }
+
+  private handleLogin(id: string, token: string, expiresIn: number) {
+    const expireDate = new Date(new Date().getTime() + expiresIn * 1000);
+
+    this.http
+      .get(
+        `https://bankist-api-default-rtdb.asia-southeast1.firebasedatabase.app/users/${id}.json`
+      )
+      .subscribe({
+        next: (responseData) => {
+          console.log(Object.entries(responseData));
+          Object.entries(responseData).map(([key, value]) => {
+            console.log(value);
+
+            const newUser = new User(
+              value.fullName,
+              value.email,
+              value.id,
+              value.cards,
+              token,
+              expireDate
+            );
+
+            this.user.next(newUser);
+            console.log(this.user);
+          });
+        },
+      });
   }
 
   private handleSignup(
