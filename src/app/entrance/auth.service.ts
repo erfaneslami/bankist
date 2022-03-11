@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 
@@ -18,6 +18,8 @@ export interface AuthResponseData {
 export class AuthService {
   API_KEY = 'AIzaSyDcloVBMNtVEejTLfNVLRiJbKKWUfjgUmI';
   SIGNUP_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
+  LOGIN_URL =
+    'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
   errorMessage;
   constructor(private http: HttpClient) {}
 
@@ -30,15 +32,38 @@ export class AuthService {
       })
       .pipe(
         catchError((error) => {
-          return throwError(() => {
-            switch (error?.error?.error?.message) {
-              case 'EMAIL_EXISTS':
-                return (this.errorMessage =
-                  'this email is Already available, try Login or rest password');
-            }
-            return this.errorMessage;
-          });
+          return this.handleError(error);
         })
       );
+  }
+
+  login(email: string, password: string) {
+    return this.http
+      .post(`${this.LOGIN_URL + this.API_KEY} `, {
+        email: email,
+        password: password,
+        returnSecureToken: true,
+      })
+      .pipe(
+        catchError((error) => {
+          return this.handleError(error);
+        })
+      );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    return throwError(() => {
+      if (!error.error || !error.error.error) {
+        this.errorMessage = 'something went wrong please try again!';
+      }
+      switch (error?.error?.error?.message) {
+        case 'EMAIL_EXISTS':
+          this.errorMessage =
+            'this email is Already available, try Login or rest password';
+          console.log(this.errorMessage);
+      }
+
+      return this.errorMessage;
+    });
   }
 }
