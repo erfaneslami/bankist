@@ -43,7 +43,12 @@ export class AuthService {
             fullName,
             response.email,
             response.localId,
-            [],
+            {
+              name: 'null',
+              number: 'null',
+              cvv2: 'null',
+              exp: 'null',
+            },
             response.idToken,
             +response.expiresIn
           );
@@ -69,13 +74,25 @@ export class AuthService {
     fullName: string,
     email: string,
     id: string,
-    cards: [],
+    cards,
     token: string,
     expiresIn: number
   ) {
     const expireDate = new Date(new Date().getTime() + expiresIn * 1000);
     const newUser = new User(fullName, email, id, cards, token, expireDate);
     this.user.next(newUser);
+
+    this.http
+      .post(
+        `https://bankist-api-default-rtdb.asia-southeast1.firebasedatabase.app/users/${id}.json`,
+        {
+          fullName,
+          email,
+          id,
+          cards,
+        }
+      )
+      .subscribe();
   }
 
   private handleError(error: HttpErrorResponse) {

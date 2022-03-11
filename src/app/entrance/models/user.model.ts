@@ -3,7 +3,12 @@ export class User {
     public name: string,
     public email: string,
     public id: string,
-    public cards: [],
+    public cards: {
+      name: string;
+      number: string;
+      cvv2: number;
+      exp: Date;
+    },
     private _token: string,
     private _expireDate: Date
   ) {}
