@@ -2,6 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 
+export interface AuthResponseData {
+  kind: string;
+  idToken: string;
+  email: string;
+  refreshToken: string;
+  expiresIn: string;
+  localId: string;
+  registered?: boolean;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -13,7 +23,7 @@ export class AuthService {
 
   signup(email: string, password: string) {
     return this.http
-      .post(`${this.SIGNUP_URL + this.API_KEY}`, {
+      .post<AuthResponseData>(`${this.SIGNUP_URL + this.API_KEY}`, {
         email: email,
         password: password,
         returnSecureToken: true,

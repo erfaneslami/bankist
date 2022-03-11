@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../auth.service';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-signup',
@@ -10,6 +12,7 @@ import { AuthService } from '../auth.service';
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
   errorMessage: string = null;
+  user = new BehaviorSubject<User>(null);
 
   constructor(private authService: AuthService) {}
 
@@ -42,7 +45,19 @@ export class SignupComponent implements OnInit {
     const form = this.signupForm.value;
     this.authService.signup(form.email, form.password).subscribe({
       next: (response) => {
-        console.log(response);
+        const newUser = new User(
+          form.fullName,
+          response.email,
+          response.localId,
+          [],
+          response.idToken,
+          new Date(
+            new Date().getTime() +
+              new Date(+response.expiresIn * 1000).getTime()
+          )
+        );
+
+        this.user.next(newUser);
       },
       error: (errorMessage) => {
         console.log(errorMessage);
