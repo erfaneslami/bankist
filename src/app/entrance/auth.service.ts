@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
+import { User } from './models/user.model';
 
 export interface AuthResponseData {
   kind: string;
@@ -21,9 +22,11 @@ export class AuthService {
   LOGIN_URL =
     'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
   errorMessage;
+  user = new BehaviorSubject<User>(null);
+
   constructor(private http: HttpClient) {}
 
-  signup(email: string, password: string) {
+  signup(email: string, password: string, fullName: string) {
     return this.http
       .post<AuthResponseData>(`${this.SIGNUP_URL + this.API_KEY}`, {
         email: email,
@@ -33,6 +36,17 @@ export class AuthService {
       .pipe(
         catchError((error) => {
           return this.handleError(error);
+        }),
+        tap((response) => {
+          console.log(fullName);
+          this.handleSignup(
+            fullName,
+            response.email,
+            response.localId,
+            [],
+            response.idToken,
+            +response.expiresIn
+          );
         })
       );
   }
@@ -49,6 +63,19 @@ export class AuthService {
           return this.handleError(error);
         })
       );
+  }
+
+  private handleSignup(
+    fullName: string,
+    email: string,
+    id: string,
+    cards: [],
+    token: string,
+    expiresIn: number
+  ) {
+    const expireDate = new Date(new Date().getTime() + expiresIn * 1000);
+    const newUser = new User(fullName, email, id, cards, token, expireDate);
+    this.user.next(newUser);
   }
 
   private handleError(error: HttpErrorResponse) {

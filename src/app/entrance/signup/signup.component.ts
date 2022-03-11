@@ -43,26 +43,14 @@ export class SignupComponent implements OnInit {
       return;
     }
     const form = this.signupForm.value;
-    this.authService.signup(form.email, form.password).subscribe({
-      next: (response) => {
-        const newUser = new User(
-          form.fullName,
-          response.email,
-          response.localId,
-          [],
-          response.idToken,
-          new Date(
-            new Date().getTime() +
-              new Date(+response.expiresIn * 1000).getTime()
-          )
-        );
-
-        this.user.next(newUser);
-      },
-      error: (errorMessage) => {
-        console.log(errorMessage);
-        this.errorMessage = errorMessage;
-      },
-    });
+    this.authService
+      .signup(form.email, form.password, form.fullName)
+      .subscribe({
+        next: (response) => {},
+        error: (errorMessage) => {
+          console.log(errorMessage);
+          this.errorMessage = errorMessage;
+        },
+      });
   }
 }
