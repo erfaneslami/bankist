@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-entrance',
@@ -7,7 +8,14 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None,
 })
 export class EntranceComponent implements OnInit {
-  constructor() {}
+  isLoading = false;
+  constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authService.isLoading.subscribe({
+      next: (isLoading) => {
+        this.isLoading = isLoading;
+      },
+    });
+  }
 }

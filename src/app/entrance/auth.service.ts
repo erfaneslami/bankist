@@ -1,6 +1,13 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  map,
+  Subject,
+  tap,
+  throwError,
+} from 'rxjs';
 import { User } from './models/user.model';
 
 export interface AuthResponseData {
@@ -23,6 +30,7 @@ export class AuthService {
     'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
   errorMessage;
   user = new BehaviorSubject<User>(null);
+  isLoading = new Subject<boolean>();
 
   constructor(private http: HttpClient) {}
 
@@ -38,6 +46,8 @@ export class AuthService {
           return this.handleError(error);
         }),
         tap((response) => {
+          this.isLoading.next(true);
+
           console.log(fullName);
           this.handleSignup(
             fullName,
@@ -68,6 +78,7 @@ export class AuthService {
           return this.handleError(error);
         }),
         tap((response) => {
+          this.isLoading.next(true);
           this.handleLogin(
             response.localId,
             response.idToken,
@@ -100,7 +111,8 @@ export class AuthService {
             );
 
             this.user.next(newUser);
-            console.log(this.user);
+
+            this.isLoading.next(false);
           });
         },
       });
@@ -139,6 +151,7 @@ export class AuthService {
               expireDate
             );
             this.user.next(newUser);
+            this.isLoading.next(false);
           });
         },
       });

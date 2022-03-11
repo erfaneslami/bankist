@@ -156,3 +156,8 @@ input.ng-invalid.ng-touched {
 input.ng-touched.ng-valid {
   border-bottom: 1px solid var(--color-green);
 }
+
+app-loading-spinner {
+  // justify-self: center !important;
+  margin: auto;
+}

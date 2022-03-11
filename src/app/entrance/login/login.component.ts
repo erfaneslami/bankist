@@ -9,6 +9,7 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  // isLoading = false;
 
   constructor(private authService: AuthService) {}
 
@@ -27,12 +28,18 @@ export class LoginComponent implements OnInit {
       this.loginForm.markAllAsTouched();
       return;
     }
+    // this.isLoading = true;
     const form = this.loginForm.value;
 
     this.authService.login(form.email, form.password).subscribe({
-      next: (response) => {},
+      next: (response) => {
+        // this.isLoading = false;
+      },
       error: (error) => {
         console.log(error);
+      },
+      complete: () => {
+        console.log('compleat');
       },
     });
   }

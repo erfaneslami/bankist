@@ -85,7 +85,7 @@
       />
     </section>
     <section class="enter">
-      <h2 class="enter__heading">
+      <h2 *ngIf="!isLoading" class="enter__heading">
         <span
           class="enter__heading-login"
           routerLink="/"
@@ -102,55 +102,9 @@
           Signup</span
         >
       </h2>
-      <!-- <form class="enter__form enter__form--active" action="#">
-        <input
-          class="enter__form-input enter__form-input--email"
-          placeholder="Email"
-          type="email"
-          name="email"
-          id="email"
-        />
-        <input
-          class="enter__form-input enter__form-input--password"
-          placeholder="Password"
-          type="password"
-          name="password"
-          id=""
-        />
-        <button class="enter__form-btn" type="submit">Sign in</button>
-        <p class="enter__form-hint">
-          Don't have an account ? <a href="#">Sign up</a> now
-        </p>
-      </form> -->
-      <!-- <app-login></app-login> -->
-      <!-- <app-signup></app-signup> -->
-      <router-outlet></router-outlet>
+      <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+      <router-outlet *ngIf="!isLoading"></router-outlet>
 
-      <!-- sign UP -->
-      <!-- <form class="enter__form" action="#">
-        <input
-          class="enter__form-input enter__form-input--email"
-          placeholder="Full name"
-          type="text"
-          name="fullName"
-          id="fullName"
-        />
-        <input
-          class="enter__form-input enter__form-input--email"
-          placeholder="Email"
-          type="email"
-          name="email"
-          id="email"
-        />
-        <input
-          class="enter__form-input enter__form-input--password"
-          placeholder="Password"
-          type="password"
-          name="password"
-          id=""
-        />
-        <button class="enter__form-btn" type="submit">Sign up</button>
-      </form> -->
       <p class="enter__copyright">
         ©️2022 Designed and Developed by <span> Erfan Eslami </span>
       </p>

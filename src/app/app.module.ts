@@ -15,6 +15,7 @@ import { BalanceChartComponent } from './dashboard/home/balance-chart/balance-ch
 import { TransactionsComponent } from './dashboard/home/transactions/transactions.component';
 import { CardComponent } from './dashboard/home/card/card.component';
 import { AccountDetailComponent } from './dashboard/home/account-detail/account-detail.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AccountDetailComponent } from './dashboard/home/account-detail/account-
     TransactionsComponent,
     CardComponent,
     AccountDetailComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     BrowserModule,
