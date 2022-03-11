@@ -3,6 +3,7 @@ export class User {
     public name: string,
     public email: string,
     public id: string,
+    public DBuserId: string,
     public cards: {
       name: string;
       number: string;

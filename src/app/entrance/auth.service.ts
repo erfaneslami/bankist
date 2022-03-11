@@ -86,7 +86,6 @@ export class AuthService {
       )
       .subscribe({
         next: (responseData) => {
-          console.log(Object.entries(responseData));
           Object.entries(responseData).map(([key, value]) => {
             console.log(value);
 
@@ -94,6 +93,7 @@ export class AuthService {
               value.fullName,
               value.email,
               value.id,
+              key,
               value.cards,
               token,
               expireDate
@@ -115,8 +115,6 @@ export class AuthService {
     expiresIn: number
   ) {
     const expireDate = new Date(new Date().getTime() + expiresIn * 1000);
-    const newUser = new User(fullName, email, id, cards, token, expireDate);
-    this.user.next(newUser);
 
     this.http
       .post(
@@ -128,7 +126,22 @@ export class AuthService {
           cards,
         }
       )
-      .subscribe();
+      .subscribe({
+        next: (response) => {
+          Object.entries(response).map(([key, value]) => {
+            const newUser = new User(
+              fullName,
+              email,
+              id,
+              value,
+              cards,
+              token,
+              expireDate
+            );
+            this.user.next(newUser);
+          });
+        },
+      });
   }
 
   private handleError(error: HttpErrorResponse) {
