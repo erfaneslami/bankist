@@ -1,5 +1,9 @@
 <h2 class="enter__heading">Add Your Card</h2>
-<form class="enter__form enter__form--active">
+<form
+  class="enter__form enter__form--active"
+  [formGroup]="cardForm"
+  (ngSubmit)="onSubmit()"
+>
   <input
     class="enter__form-input"
     placeholder="Card owner name"
@@ -11,7 +15,7 @@
 
   <input
     class="enter__form-input"
-    placeholder="Email"
+    placeholder="Card number"
     type="number"
     name="cardNumber"
     id="cardNumber"
@@ -20,7 +24,7 @@
 
   <input
     class="enter__form-input"
-    placeholder="cvv2"
+    placeholder="CVV2"
     type="number"
     name="cvv2"
     id=""
@@ -30,9 +34,9 @@
     class="enter__form-input"
     placeholder="exp date (01/01)"
     type="text"
-    name="cvv2"
+    name="exp"
     id=""
-    formControlName="cvv2"
+    formControlName="exp"
   />
   <button class="enter__form-btn" type="submit">Submit</button>
 </form>
