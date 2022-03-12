@@ -29,6 +29,7 @@ export class UserService {
           user.id,
           user.DBuserId,
           { ownerName, cardNumber, cvv2, exp },
+          null,
           user.token,
           user.expireDate
         );

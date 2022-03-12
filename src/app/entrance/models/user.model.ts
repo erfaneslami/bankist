@@ -1,4 +1,5 @@
 import { Card } from './card.model';
+import { Movements } from './movement.model';
 
 export class User {
   constructor(
@@ -7,7 +8,7 @@ export class User {
     public id: string,
     public DBuserId: string,
     public card: Card,
-    // movements : {}
+    public movements: Movements[],
     private _token: string,
     private _expireDate: Date
   ) {}

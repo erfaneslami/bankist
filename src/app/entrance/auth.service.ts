@@ -56,6 +56,7 @@ export class AuthService {
             response.email,
             response.localId,
             {},
+            [],
             response.idToken,
             +response.expiresIn
           );
@@ -103,6 +104,7 @@ export class AuthService {
               value.id,
               key,
               value.card,
+              value.movements,
               token,
               expireDate
             );
@@ -120,6 +122,7 @@ export class AuthService {
     email: string,
     id: string,
     card,
+    movements,
     token: string,
     expiresIn: number
   ) {
@@ -133,6 +136,7 @@ export class AuthService {
           email,
           id,
           card,
+          movements,
         }
       )
       .subscribe({
@@ -144,6 +148,7 @@ export class AuthService {
               id,
               value,
               card,
+              movements,
               token,
               expireDate
             );
@@ -171,6 +176,4 @@ export class AuthService {
       return this.errorMessage;
     });
   }
-
-  submitUser(id) {}
 }
