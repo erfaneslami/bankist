@@ -1,15 +1,12 @@
+import { Card } from './card.model';
+
 export class User {
   constructor(
     public name: string,
     public email: string,
     public id: string,
     public DBuserId: string,
-    public cards: {
-      name: string;
-      number: string;
-      cvv2: number;
-      exp: Date;
-    },
+    public card: Card,
     // movements : {}
     private _token: string,
     private _expireDate: Date
@@ -18,5 +15,9 @@ export class User {
   get token() {
     if (!this._expireDate || new Date() > this._expireDate) return null;
     return this._token;
+  }
+
+  get expireDate() {
+    return this._expireDate;
   }
 }

@@ -171,4 +171,6 @@ export class AuthService {
       return this.errorMessage;
     });
   }
+
+  submitUser(id) {}
 }

@@ -1,16 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { take } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Card } from './models/card.model';
+import { User } from './models/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+  newUser;
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   addCard(ownerName, cardNumber, cvv2, exp) {
-    this.authService.user.subscribe({
+    this.authService.user.pipe(take(1)).subscribe({
       next: (user) => {
         this.http
           .put(
@@ -18,8 +21,20 @@ export class UserService {
             { ownerName, cardNumber, cvv2, exp }
           )
           .subscribe();
+
         console.log(user);
+        this.newUser = new User(
+          user.name,
+          user.email,
+          user.id,
+          user.DBuserId,
+          { ownerName, cardNumber, cvv2, exp },
+          user.token,
+          user.expireDate
+        );
       },
     });
+
+    this.authService.user.next(this.newUser);
   }
 }
