@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { UserService } from '../user.service';
 })
 export class AddcartComponent implements OnInit {
   cardForm: FormGroup;
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
     this.cardForm = new FormGroup({
@@ -28,7 +29,6 @@ export class AddcartComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.cardForm.value);
     const form = this.cardForm.value;
     this.userService.addCard(
       form.ownerName,
@@ -36,5 +36,7 @@ export class AddcartComponent implements OnInit {
       form.cvv2,
       form.exp
     );
+
+    this.router.navigate(['/dashboard']);
   }
 }
