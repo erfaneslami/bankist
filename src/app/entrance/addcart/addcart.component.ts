@@ -28,6 +28,13 @@ export class AddcartComponent implements OnInit {
   }
 
   onSubmit() {
-    this.userService.addCard();
+    console.log(this.cardForm.value);
+    const form = this.cardForm.value;
+    this.userService.addCard(
+      form.ownerName,
+      form.cardNumber,
+      form.cvv2,
+      form.exp
+    );
   }
 }

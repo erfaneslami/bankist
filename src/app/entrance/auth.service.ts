@@ -55,12 +55,7 @@ export class AuthService {
             fullName,
             response.email,
             response.localId,
-            {
-              name: 'null',
-              number: 'null',
-              cvv2: 'null',
-              exp: 'null',
-            },
+            {},
             response.idToken,
             +response.expiresIn
           );
@@ -107,7 +102,7 @@ export class AuthService {
               value.email,
               value.id,
               key,
-              value.cards,
+              value.card,
               token,
               expireDate
             );
@@ -124,7 +119,7 @@ export class AuthService {
     fullName: string,
     email: string,
     id: string,
-    cards,
+    card,
     token: string,
     expiresIn: number
   ) {
@@ -137,7 +132,7 @@ export class AuthService {
           fullName,
           email,
           id,
-          cards,
+          card,
         }
       )
       .subscribe({
@@ -148,14 +143,14 @@ export class AuthService {
               email,
               id,
               value,
-              cards,
+              card,
               token,
               expireDate
             );
             this.user.next(newUser);
             this.isLoading.next(false);
-            this.isSignup.next(true);
             this.router.navigate(['/signup/add-card']);
+            this.isSignup.next(true);
           });
         },
       });
