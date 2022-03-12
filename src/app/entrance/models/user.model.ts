@@ -9,6 +9,7 @@ export class User {
     public DBuserId: string,
     public card: Card,
     public movements: Movements[],
+    public balance: number,
     private _token: string,
     private _expireDate: Date
   ) {}

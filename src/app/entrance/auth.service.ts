@@ -57,6 +57,7 @@ export class AuthService {
             response.localId,
             {},
             [],
+            0,
             response.idToken,
             +response.expiresIn
           );
@@ -105,6 +106,7 @@ export class AuthService {
               key,
               value.card,
               value.movements,
+              value.balance,
               token,
               expireDate
             );
@@ -123,6 +125,7 @@ export class AuthService {
     id: string,
     card,
     movements,
+    balance,
     token: string,
     expiresIn: number
   ) {
@@ -137,6 +140,7 @@ export class AuthService {
           id,
           card,
           movements,
+          balance,
         }
       )
       .subscribe({
@@ -149,6 +153,7 @@ export class AuthService {
               value,
               card,
               movements,
+              balance,
               token,
               expireDate
             );
