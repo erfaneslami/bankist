@@ -112,8 +112,8 @@ export class AuthService {
             );
 
             this.user.next(newUser);
-
             this.isLoading.next(false);
+            this.router.navigate(['/dashboard']);
           });
         },
       });
