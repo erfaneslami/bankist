@@ -85,7 +85,11 @@
       />
     </section>
     <section class="enter">
-      <h2 *ngIf="!isLoading" class="enter__heading">
+      <h2
+        *ngIf="!isLoading"
+        [ngClass]="{ hide: isSignup === true }"
+        class="enter__heading"
+      >
         <span
           class="enter__heading-login"
           routerLink="/"

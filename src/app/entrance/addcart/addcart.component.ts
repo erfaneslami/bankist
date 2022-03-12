@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-addcart',
@@ -8,7 +9,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AddcartComponent implements OnInit {
   cardForm: FormGroup;
-  constructor() {}
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     this.cardForm = new FormGroup({
@@ -26,5 +27,7 @@ export class AddcartComponent implements OnInit {
     });
   }
 
-  onSubmit() {}
+  onSubmit() {
+    this.userService.addCard();
+  }
 }

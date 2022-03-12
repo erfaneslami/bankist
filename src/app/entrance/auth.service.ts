@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   BehaviorSubject,
   catchError,
@@ -31,8 +32,9 @@ export class AuthService {
   errorMessage;
   user = new BehaviorSubject<User>(null);
   isLoading = new Subject<boolean>();
+  isSignup = new Subject<boolean>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   signup(email: string, password: string, fullName: string) {
     return this.http
@@ -152,6 +154,8 @@ export class AuthService {
             );
             this.user.next(newUser);
             this.isLoading.next(false);
+            this.isSignup.next(true);
+            this.router.navigate(['/signup/add-card']);
           });
         },
       });

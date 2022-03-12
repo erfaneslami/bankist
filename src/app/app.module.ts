@@ -17,6 +17,7 @@ import { CardComponent } from './dashboard/home/card/card.component';
 import { AccountDetailComponent } from './dashboard/home/account-detail/account-detail.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AddcartComponent } from './entrance/addcart/addcart.component';
+import { AuthService } from './entrance/auth.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { AddcartComponent } from './entrance/addcart/addcart.component';
     HttpClientModule,
     IonicModule.forRoot(),
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

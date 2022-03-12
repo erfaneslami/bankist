@@ -9,12 +9,20 @@ import { AuthService } from './auth.service';
 })
 export class EntranceComponent implements OnInit {
   isLoading = false;
+  isSignup = false;
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.authService.isLoading.subscribe({
       next: (isLoading) => {
         this.isLoading = isLoading;
+      },
+    });
+
+    this.authService.isSignup.subscribe({
+      next: (isSignup) => {
+        console.log(isSignup);
+        this.isSignup = isSignup;
       },
     });
   }
