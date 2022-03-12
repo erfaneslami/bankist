@@ -1,9 +1,9 @@
 <div class="card">
   <p class="card__bank-name">Saman</p>
-  <p class="card__number">6219 8610 4429 5383</p>
+  <p class="card__number">{{ user.card.cardNumber }}</p>
   <div class="card__info">
-    <p class="card__owner">erfan eslami</p>
-    <p class="card__cvv">654</p>
-    <p class="card__exp">07/05</p>
+    <p class="card__owner">{{ user.card.ownerName }}</p>
+    <p class="card__cvv">{{ user.card.cvv2 }}</p>
+    <p class="card__exp">{{ user.card.exp }}</p>
   </div>
 </div>

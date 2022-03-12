@@ -2,13 +2,15 @@
   <ul>
     <li>
       <span class="card-detail__head">ID</span>
-      <span class="card-detail__value card-detail__value--ID">545612358</span>
+      <span class="card-detail__value card-detail__value--ID">{{
+        user.id
+      }}</span>
     </li>
     <li>
       <span class="card-detail__head">Account</span>
-      <span class="card-detail__value card-detail__value--card-number"
-        >6219 8610 4429 5383</span
-      >
+      <span class="card-detail__value card-detail__value--card-number">{{
+        user.card.cardNumber
+      }}</span>
     </li>
     <li>
       <span class="card-detail__head">Status</span>
@@ -17,7 +19,7 @@
     <li>
       <span class="card-detail__head">Balance</span>
       <span class="card-detail__value card-detail__value--balance"
-        >12,000 R</span
+        >{{ user.balance }} R</span
       >
     </li>
   </ul>
