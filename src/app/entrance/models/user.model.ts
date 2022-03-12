@@ -10,6 +10,7 @@ export class User {
       cvv2: number;
       exp: Date;
     },
+    // movements : {}
     private _token: string,
     private _expireDate: Date
   ) {}

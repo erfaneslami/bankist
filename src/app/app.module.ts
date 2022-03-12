@@ -16,6 +16,7 @@ import { TransactionsComponent } from './dashboard/home/transactions/transaction
 import { CardComponent } from './dashboard/home/card/card.component';
 import { AccountDetailComponent } from './dashboard/home/account-detail/account-detail.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { AddcartComponent } from './entrance/addcart/addcart.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
     CardComponent,
     AccountDetailComponent,
     LoadingSpinnerComponent,
+    AddcartComponent,
   ],
   imports: [
     BrowserModule,
