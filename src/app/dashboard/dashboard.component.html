@@ -66,12 +66,16 @@
     </header>
     <nav class="nav">
       <ul>
-        <li class="nav__home nav--active">
+        <li
+          class="nav__home"
+          routerLinkActive="nav--active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
           <a routerLink="/dashboard">
             <ion-icon name="home-outline"></ion-icon> <span> Home</span></a
           >
         </li>
-        <li class="nav__transfer">
+        <li class="nav__transfer" routerLinkActive="nav--active">
           <a routerLink="transfer"
             ><ion-icon name="swap-horizontal-outline"></ion-icon>
             <span> Transfer </span></a
