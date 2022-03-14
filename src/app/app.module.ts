@@ -18,6 +18,7 @@ import { AccountDetailComponent } from './dashboard/home/account-detail/account-
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AddcartComponent } from './entrance/addcart/addcart.component';
 import { AuthService } from './entrance/auth.service';
+import { TransferComponent } from './dashboard/transfer/transfer.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { AuthService } from './entrance/auth.service';
     AccountDetailComponent,
     LoadingSpinnerComponent,
     AddcartComponent,
+    TransferComponent,
   ],
   imports: [
     BrowserModule,
