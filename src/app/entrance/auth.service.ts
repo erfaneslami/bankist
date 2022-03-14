@@ -9,6 +9,7 @@ import {
   tap,
   throwError,
 } from 'rxjs';
+import { Movements } from './models/movement.model';
 import { User } from './models/user.model';
 
 export interface AuthResponseData {
@@ -56,7 +57,7 @@ export class AuthService {
             response.email,
             response.localId,
             {},
-            [],
+            [new Movements('', null, '', 0)],
             0,
             response.idToken,
             +response.expiresIn
@@ -105,7 +106,12 @@ export class AuthService {
               value.id,
               key,
               value.card,
-              value.movements,
+              // value.movements,
+              [
+                new Movements('', null, '', 10),
+                new Movements('', null, '', 5),
+                new Movements('', null, '', -50),
+              ],
               value.balance,
               token,
               expireDate
@@ -124,7 +130,7 @@ export class AuthService {
     email: string,
     id: string,
     card,
-    movements,
+    movements: Movements[],
     balance,
     token: string,
     expiresIn: number

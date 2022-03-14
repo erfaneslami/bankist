@@ -1,5 +1,8 @@
 import { AfterViewChecked, Component, OnInit, ViewChild } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
+import { AuthService } from 'src/app/entrance/auth.service';
+import { User } from 'src/app/entrance/models/user.model';
+import { UserService } from 'src/app/entrance/user.service';
 
 @Component({
   selector: 'app-balance-chart',
@@ -8,10 +11,18 @@ import { Chart, registerables } from 'chart.js';
 })
 export class BalanceChartComponent implements OnInit {
   @ViewChild('myChart', { static: true }) myChart: any;
-  constructor() {}
+  user: User;
+  constructor(
+    private authService: AuthService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
+    this.authService.user.subscribe({
+      next: (user) => (user = this.user),
+    });
     this.creatChart(1000, 17500);
+    this.userService.getIncome();
   }
 
   creatChart(income: number, expense: number) {
