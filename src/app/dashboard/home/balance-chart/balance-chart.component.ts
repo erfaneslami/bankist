@@ -3,7 +3,7 @@ import { Chart, registerables } from 'chart.js';
 import { AuthService } from 'src/app/entrance/auth.service';
 import { User } from 'src/app/entrance/models/user.model';
 import { UserService } from 'src/app/entrance/user.service';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-balance-chart',
   templateUrl: './balance-chart.component.html',
@@ -25,9 +25,10 @@ export class BalanceChartComponent implements OnInit {
         this.user = user;
       },
     });
-    this.creatChart(1000, 17500);
     this.income = this.userService.getIncome();
     this.expense = this.userService.getExpense();
+    this.creatChart(this.income, this.expense);
+    console.log(moment().format());
   }
 
   creatChart(income: number, expense: number) {

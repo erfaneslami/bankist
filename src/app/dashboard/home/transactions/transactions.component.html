@@ -11,7 +11,8 @@
   <ul class="transaction__container">
     <li *ngFor="let move of user.movements">
       <span class="transaction__descrption">{{ move.description }}</span
-      ><span class="transaction__time"> {{ move.time }} </span
+      ><span class="transaction__time">
+        {{ moment(move.time).calendar() }} </span
       ><span class="transaction__status">{{ move.status }}</span
       ><span class="transaction__amount">{{ move.amount }} R</span>
     </li>

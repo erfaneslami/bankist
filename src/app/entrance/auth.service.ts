@@ -11,6 +11,7 @@ import {
 } from 'rxjs';
 import { Movements } from './models/movement.model';
 import { User } from './models/user.model';
+import * as moment from 'moment';
 
 export interface AuthResponseData {
   kind: string;
@@ -57,7 +58,14 @@ export class AuthService {
             response.email,
             response.localId,
             {},
-            [],
+            [
+              new Movements(
+                'initial bank',
+                moment().format(),
+                'Successfully',
+                50000
+              ),
+            ],
             0,
             response.idToken,
             +response.expiresIn
@@ -124,7 +132,7 @@ export class AuthService {
     email: string,
     id: string,
     card,
-    movements,
+    movements: Movements[],
     balance,
     token: string,
     expiresIn: number
