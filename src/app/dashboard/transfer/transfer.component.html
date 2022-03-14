@@ -1,5 +1,9 @@
 <main>
-  <form class="enter__form enter__form--active">
+  <form
+    class="enter__form enter__form--active"
+    [formGroup]="transferForm"
+    (ngSubmit)="onTransfer()"
+  >
     <h2>Transfer money</h2>
     <input
       class="enter__form-input"
