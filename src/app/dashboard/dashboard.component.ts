@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  DoCheck,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { AuthService } from '../entrance/auth.service';
 import { User } from '../entrance/models/user.model';
 
@@ -7,15 +14,21 @@ import { User } from '../entrance/models/user.model';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, DoCheck {
   user: User;
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.authService.user.subscribe({
       next: (user) => {
         this.user = user;
+        this.cd.detectChanges();
+        console.log('test');
       },
     });
   }
+  ngDoCheck(): void {}
 }

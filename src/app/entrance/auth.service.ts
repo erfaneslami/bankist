@@ -66,7 +66,7 @@ export class AuthService {
                 50000
               ),
             ],
-            0,
+            50000,
             response.idToken,
             +response.expiresIn
           );
