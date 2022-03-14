@@ -60,4 +60,23 @@ export class UserService {
     });
     return income;
   }
+
+  getExpense() {
+    let expense: number;
+    this.authService.user.subscribe({
+      next: (user) => {
+        if (!user.movements) {
+          expense = 0;
+          return;
+        }
+        expense = user.movements
+          ?.map((move) => move.amount)
+          .filter((amount) => amount < 0)
+          .reduce((sum, expense) => {
+            return sum + expense;
+          }, 0);
+      },
+    });
+    return expense;
+  }
 }

@@ -12,6 +12,8 @@ import { UserService } from 'src/app/entrance/user.service';
 export class BalanceChartComponent implements OnInit {
   @ViewChild('myChart', { static: true }) myChart: any;
   user: User;
+  income: number;
+  expense: number;
   constructor(
     private authService: AuthService,
     private userService: UserService
@@ -19,10 +21,13 @@ export class BalanceChartComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.user.subscribe({
-      next: (user) => (user = this.user),
+      next: (user) => {
+        this.user = user;
+      },
     });
     this.creatChart(1000, 17500);
-    console.log(this.userService.getIncome());
+    this.income = this.userService.getIncome();
+    this.expense = this.userService.getExpense();
   }
 
   creatChart(income: number, expense: number) {
