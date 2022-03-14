@@ -22,7 +22,7 @@ export class BalanceChartComponent implements OnInit {
       next: (user) => (user = this.user),
     });
     this.creatChart(1000, 17500);
-    this.userService.getIncome();
+    console.log(this.userService.getIncome());
   }
 
   creatChart(income: number, expense: number) {

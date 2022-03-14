@@ -43,18 +43,21 @@ export class UserService {
   }
 
   getIncome() {
+    let income: number;
     this.authService.user.subscribe({
       next: (user) => {
-        console.log(user);
-        const test = user.movements
-          .map((move) => move.amount)
+        if (!user.movements) {
+          income = 0;
+          return;
+        }
+        income = user.movements
+          ?.map((move) => move.amount)
           .filter((amount) => amount > 0)
           .reduce((sum, income) => {
             return sum + income;
           }, 0);
-
-        console.log(test);
       },
     });
+    return income;
   }
 }

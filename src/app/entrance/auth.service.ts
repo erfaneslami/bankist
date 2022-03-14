@@ -57,7 +57,7 @@ export class AuthService {
             response.email,
             response.localId,
             {},
-            [new Movements('', null, '', 0)],
+            [],
             0,
             response.idToken,
             +response.expiresIn
@@ -98,20 +98,14 @@ export class AuthService {
       .subscribe({
         next: (responseData) => {
           Object.entries(responseData).map(([key, value]) => {
-            console.log(value);
-
             const newUser = new User(
               value.fullName,
               value.email,
               value.id,
               key,
               value.card,
-              // value.movements,
-              [
-                new Movements('', null, '', 10),
-                new Movements('', null, '', 5),
-                new Movements('', null, '', -50),
-              ],
+              value.movements,
+
               value.balance,
               token,
               expireDate
@@ -130,7 +124,7 @@ export class AuthService {
     email: string,
     id: string,
     card,
-    movements: Movements[],
+    movements,
     balance,
     token: string,
     expiresIn: number
