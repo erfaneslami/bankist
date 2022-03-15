@@ -140,7 +140,7 @@ export class AuthService {
     const expireDate = new Date(new Date().getTime() + expiresIn * 1000);
 
     this.http
-      .post(
+      .put(
         `https://bankist-api-default-rtdb.asia-southeast1.firebasedatabase.app/users/${id}.json`,
         {
           fullName,
