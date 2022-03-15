@@ -4,6 +4,7 @@ import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { take } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Card } from './models/card.model';
+import { Movements } from './models/movement.model';
 import { User } from './models/user.model';
 
 @Injectable({
@@ -81,5 +82,26 @@ export class UserService {
 
   transfer(cardNumber, amount) {
     console.log(cardNumber, amount);
+    this.http
+      .get(
+        `https://bankist-api-default-rtdb.asia-southeast1.firebasedatabase.app/users.json?orderBy="card/cardNumber"&equalTo=${cardNumber}`
+      )
+      .subscribe({
+        next: (response) => {
+          console.log(response);
+          Object.entries(response).map(([_, value]) => {
+            value.movements.push(
+              new Movements('test', 'today', 'success', 1500)
+            );
+
+            this.http
+              .put(
+                `https://bankist-api-default-rtdb.asia-southeast1.firebasedatabase.app/users/${value.id}/movements.json`,
+                value.movements
+              )
+              .subscribe();
+          });
+        },
+      });
   }
 }
