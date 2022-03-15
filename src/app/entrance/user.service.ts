@@ -18,7 +18,7 @@ export class UserService {
       next: (user) => {
         this.http
           .put(
-            `https://bankist-api-default-rtdb.asia-southeast1.firebasedatabase.app/users/${user.id}/${user.DBuserId}/card.json`,
+            `https://bankist-api-default-rtdb.asia-southeast1.firebasedatabase.app/users/${user.id}/card.json`,
             // { ownerName, cardNumber, cvv2, exp }
             new Card(ownerName, cardNumber, cvv2, exp)
           )
