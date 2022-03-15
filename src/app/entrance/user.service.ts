@@ -79,4 +79,8 @@ export class UserService {
     });
     return expense;
   }
+
+  transfer(cardNumber, amount) {
+    console.log(cardNumber, amount);
+  }
 }

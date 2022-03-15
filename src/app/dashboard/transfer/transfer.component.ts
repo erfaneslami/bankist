@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { UserService } from 'src/app/entrance/user.service';
 
 @Component({
   selector: 'app-transfer',
@@ -7,7 +8,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./transfer.component.scss'],
 })
 export class TransferComponent implements OnInit {
-  constructor() {}
+  constructor(private userService: UserService) {}
   transferForm: FormGroup;
 
   ngOnInit(): void {
@@ -18,9 +19,11 @@ export class TransferComponent implements OnInit {
   }
 
   onTransfer() {
+    const form = this.transferForm.value;
     if (!this.transferForm.valid) {
       this.transferForm.markAllAsTouched();
       return;
     }
+    this.userService.transfer(form.receiverCard, form.transferAmount);
   }
 }
