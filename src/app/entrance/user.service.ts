@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Injectable } from '@angular/core';
 
-import { take, throwError } from 'rxjs';
+import { catchError, take, tap, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Card } from './models/card.model';
 import { Movements } from './models/movement.model';
@@ -81,14 +81,12 @@ export class UserService {
   }
 
   transfer(cardNumber, amount, description) {
-    console.log(cardNumber, amount);
-    this.http
+    return this.http
       .get(
         `https://bankist-api-default-rtdb.asia-southeast1.firebasedatabase.app/users.json?orderBy="card/cardNumber"&equalTo=${+cardNumber}`
       )
-      .subscribe({
-        next: (response) => {
-          console.log(response);
+      .pipe(
+        tap((response) => {
           if (Object.keys(response).length === 0) {
             console.log('tes');
             throw new Error('wrong card number');
@@ -97,11 +95,14 @@ export class UserService {
             this.submitDeposit(description, amount, value);
           });
           this.submitWithdrawal(description, amount);
-        },
-        error: (error) => {
-          console.log(error);
-        },
-      });
+        }),
+        catchError((error) => {
+          return throwError(() => {
+            console.log(error);
+            return error;
+          });
+        })
+      );
   }
 
   submitDeposit(description, amount, user) {

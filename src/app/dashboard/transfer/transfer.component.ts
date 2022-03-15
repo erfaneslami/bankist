@@ -25,10 +25,13 @@ export class TransferComponent implements OnInit {
       this.transferForm.markAllAsTouched();
       return;
     }
-    this.userService.transfer(
-      form.receiverCard,
-      form.transferAmount,
-      form.transferDesc
-    );
+    this.userService
+      .transfer(form.receiverCard, form.transferAmount, form.transferDesc)
+      .subscribe({
+        next: (res) => {},
+        error: (error) => {
+          console.log(error);
+        },
+      });
   }
 }
