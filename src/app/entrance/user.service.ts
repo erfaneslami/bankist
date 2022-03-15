@@ -81,6 +81,10 @@ export class UserService {
   }
 
   transfer(cardNumber, amount, description) {
+    let balance;
+    this.authService.user.pipe(take(1)).subscribe({
+      next: (user) => (balance = user.balance),
+    });
     return this.http
       .get(
         `https://bankist-api-default-rtdb.asia-southeast1.firebasedatabase.app/users.json?orderBy="card/cardNumber"&equalTo=${+cardNumber}`
@@ -91,10 +95,14 @@ export class UserService {
             console.log('tes');
             throw new Error('wrong card number');
           }
+
+          if (balance < amount) {
+            throw new Error('Balance is not enough');
+          }
+          this.submitWithdrawal(description, amount);
           Object.entries(response).map(([_, value]) => {
             this.submitDeposit(description, amount, value);
           });
-          this.submitWithdrawal(description, amount);
         }),
         catchError((error) => {
           return throwError(() => {
