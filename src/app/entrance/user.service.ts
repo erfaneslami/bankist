@@ -29,7 +29,6 @@ export class UserService {
           user.name,
           user.email,
           user.id,
-          user.DBuserId,
           new Card(ownerName, cardNumber, cvv2, exp),
           user.movements,
           user.balance,

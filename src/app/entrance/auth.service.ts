@@ -74,59 +74,6 @@ export class AuthService {
       );
   }
 
-  login(email: string, password: string) {
-    return this.http
-      .post<AuthResponseData>(`${this.LOGIN_URL + this.API_KEY} `, {
-        email: email,
-        password: password,
-        returnSecureToken: true,
-      })
-      .pipe(
-        catchError((error) => {
-          return this.handleError(error);
-        }),
-        tap((response) => {
-          this.isLoading.next(true);
-          this.handleLogin(
-            response.localId,
-            response.idToken,
-            +response.expiresIn
-          );
-        })
-      );
-  }
-
-  private handleLogin(id: string, token: string, expiresIn: number) {
-    const expireDate = new Date(new Date().getTime() + expiresIn * 1000);
-
-    this.http
-      .get(
-        `https://bankist-api-default-rtdb.asia-southeast1.firebasedatabase.app/users/${id}.json`
-      )
-      .subscribe({
-        next: (responseData) => {
-          Object.entries(responseData).map(([key, value]) => {
-            const newUser = new User(
-              value.fullName,
-              value.email,
-              value.id,
-              key,
-              value.card,
-              value.movements,
-
-              value.balance,
-              token,
-              expireDate
-            );
-
-            this.user.next(newUser);
-            this.isLoading.next(false);
-            this.router.navigate(['/dashboard']);
-          });
-        },
-      });
-  }
-
   private handleSignup(
     fullName: string,
     email: string,
@@ -153,23 +100,79 @@ export class AuthService {
       )
       .subscribe({
         next: (response) => {
-          Object.entries(response).map(([key, value]) => {
-            const newUser = new User(
-              fullName,
-              email,
-              id,
-              value,
-              card,
-              movements,
-              balance,
-              token,
-              expireDate
-            );
-            this.user.next(newUser);
-            this.isLoading.next(false);
-            this.router.navigate(['/signup/add-card']);
-            this.isSignup.next(true);
-          });
+          console.log(response);
+          const newUser = new User(
+            fullName,
+            email,
+            id,
+            card,
+            movements,
+            balance,
+            token,
+            expireDate
+          );
+          this.user.next(newUser);
+          this.isLoading.next(false);
+          this.router.navigate(['/signup/add-card']);
+          this.isSignup.next(true);
+        },
+      });
+  }
+
+  login(email: string, password: string) {
+    return this.http
+      .post<AuthResponseData>(`${this.LOGIN_URL + this.API_KEY} `, {
+        email: email,
+        password: password,
+        returnSecureToken: true,
+      })
+      .pipe(
+        catchError((error) => {
+          return this.handleError(error);
+        }),
+        tap((response) => {
+          this.isLoading.next(true);
+          this.handleLogin(
+            response.localId,
+            response.idToken,
+            +response.expiresIn
+          );
+        })
+      );
+  }
+
+  private handleLogin(id: string, token: string, expiresIn: number) {
+    const expireDate = new Date(new Date().getTime() + expiresIn * 1000);
+
+    // balance: 50000
+    // card: {cardNumber: 6219861044295383, cvv2: 105, exp: '02/05', ownerName: 'erfan eslami'}
+    // email: "erfan.88.eslami@gmail.com"
+    // fullName: "erfan eslami"
+    // id: "n6M5YvWnnGSCoCv00QrSGhNV1ND2"
+    // movements: [{…}]
+
+    this.http
+      .get<{ balance; card; email; fullName; id; movements }>(
+        `https://bankist-api-default-rtdb.asia-southeast1.firebasedatabase.app/users/${id}.json`
+      )
+      .subscribe({
+        next: (responseData) => {
+          console.log(responseData);
+
+          const newUser = new User(
+            responseData.fullName,
+            responseData.email,
+            responseData.id,
+            responseData.card,
+            responseData.movements,
+            responseData.balance,
+            token,
+            expireDate
+          );
+
+          this.user.next(newUser);
+          this.isLoading.next(false);
+          this.router.navigate(['/dashboard']);
         },
       });
   }

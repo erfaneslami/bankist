@@ -6,7 +6,6 @@ export class User {
     public name: string,
     public email: string,
     public id: string,
-    public DBuserId: string,
     public card: Card,
     public movements: Movements[],
     public balance: number,
