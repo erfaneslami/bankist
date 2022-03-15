@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Injectable } from '@angular/core';
 
-import { take } from 'rxjs';
+import { take, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Card } from './models/card.model';
 import { Movements } from './models/movement.model';
 import { User } from './models/user.model';
-
+import * as moment from 'moment';
 @Injectable({
   providedIn: 'root',
 })
@@ -80,28 +80,57 @@ export class UserService {
     return expense;
   }
 
-  transfer(cardNumber, amount) {
+  transfer(cardNumber, amount, description) {
     console.log(cardNumber, amount);
     this.http
       .get(
-        `https://bankist-api-default-rtdb.asia-southeast1.firebasedatabase.app/users.json?orderBy="card/cardNumber"&equalTo=${cardNumber}`
+        `https://bankist-api-default-rtdb.asia-southeast1.firebasedatabase.app/users.json?orderBy="card/cardNumber"&equalTo=${+cardNumber}`
       )
       .subscribe({
         next: (response) => {
           console.log(response);
+          if (Object.keys(response).length === 0) {
+            console.log('tes');
+            throw new Error('wrong card number');
+          }
           Object.entries(response).map(([_, value]) => {
-            value.movements.push(
-              new Movements('test', 'today', 'success', 1500)
-            );
-
-            this.http
-              .put(
-                `https://bankist-api-default-rtdb.asia-southeast1.firebasedatabase.app/users/${value.id}/movements.json`,
-                value.movements
-              )
-              .subscribe();
+            this.submitDeposit(description, amount, value);
           });
+          this.submitWithdrawal(description, amount);
+        },
+        error: (error) => {
+          console.log(error);
         },
       });
+  }
+
+  submitDeposit(description, amount, user) {
+    user.movements.push(
+      new Movements(description, moment().format(), 'deposit', amount)
+    );
+
+    this.http
+      .put(
+        `https://bankist-api-default-rtdb.asia-southeast1.firebasedatabase.app/users/${user.id}/movements.json`,
+        user.movements
+      )
+      .subscribe();
+  }
+
+  submitWithdrawal(description: string, amount: number) {
+    this.authService.user.subscribe({
+      next: (user) => {
+        user.movements.push(
+          new Movements(description, moment().format(), 'Withdrawal', -amount)
+        );
+
+        this.http
+          .put(
+            `https://bankist-api-default-rtdb.asia-southeast1.firebasedatabase.app/users/${user.id}/movements.json`,
+            user.movements
+          )
+          .subscribe();
+      },
+    });
   }
 }

@@ -15,6 +15,7 @@ export class TransferComponent implements OnInit {
     this.transferForm = new FormGroup({
       receiverCard: new FormControl(null),
       transferAmount: new FormControl(null),
+      transferDesc: new FormControl(null),
     });
   }
 
@@ -24,6 +25,10 @@ export class TransferComponent implements OnInit {
       this.transferForm.markAllAsTouched();
       return;
     }
-    this.userService.transfer(form.receiverCard, form.transferAmount);
+    this.userService.transfer(
+      form.receiverCard,
+      form.transferAmount,
+      form.transferDesc
+    );
   }
 }
