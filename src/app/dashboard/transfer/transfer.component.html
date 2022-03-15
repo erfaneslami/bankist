@@ -1,8 +1,10 @@
 <main>
+  <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
   <form
     class="enter__form enter__form--active"
     [formGroup]="transferForm"
     (ngSubmit)="onTransfer()"
+    *ngIf="!isLoading"
   >
     <h2>Transfer money</h2>
     <input
