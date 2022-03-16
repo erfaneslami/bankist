@@ -188,4 +188,9 @@ export class AuthService {
       return this.errorMessage;
     });
   }
+
+  logout() {
+    this.user.next(null);
+    this.router.navigate(['/']);
+  }
 }
