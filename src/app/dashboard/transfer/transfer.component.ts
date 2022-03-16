@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/entrance/user.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { UserService } from 'src/app/entrance/user.service';
   styleUrls: ['./transfer.component.scss'],
 })
 export class TransferComponent implements OnInit {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
   transferForm: FormGroup;
   isLoading = false;
   errorMessage = null;
@@ -47,6 +48,9 @@ export class TransferComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.isLoading = false;
+          this.transferForm.reset();
+          // TODO SHOW SUCCESS MESSAGE
+          this.router.navigate(['/dashboard']);
         },
         error: (error) => {
           this.isLoading = false;
