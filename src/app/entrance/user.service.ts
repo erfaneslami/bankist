@@ -44,7 +44,7 @@ export class UserService {
 
   getIncome() {
     let income: number;
-    this.authService.user.subscribe({
+    this.authService.user.pipe(take(1)).subscribe({
       next: (user) => {
         if (!user.movements) {
           income = 0;
@@ -63,7 +63,7 @@ export class UserService {
 
   getExpense() {
     let expense: number;
-    this.authService.user.subscribe({
+    this.authService.user.pipe(take(1)).subscribe({
       next: (user) => {
         if (!user.movements) {
           expense = 0;
@@ -138,7 +138,7 @@ export class UserService {
   }
 
   submitWithdrawal(description: string, amount: number) {
-    this.authService.user.subscribe({
+    this.authService.user.pipe(take(1)).subscribe({
       next: (user) => {
         user.movements.push(
           new Movements(description, moment().format(), 'Withdrawal', -amount)
