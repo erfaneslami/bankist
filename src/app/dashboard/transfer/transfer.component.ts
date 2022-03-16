@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/entrance/user.service';
 
 @Component({
@@ -11,15 +11,29 @@ export class TransferComponent implements OnInit {
   constructor(private userService: UserService) {}
   transferForm: FormGroup;
   isLoading = false;
+  errorMessage = null;
 
   ngOnInit(): void {
     this.transferForm = new FormGroup({
-      receiverCard: new FormControl(null),
-      transferAmount: new FormControl(null),
+      receiverCard: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(16),
+        Validators.maxLength(16),
+      ]),
+      transferAmount: new FormControl(null, [
+        Validators.required,
+        Validators.min(1),
+      ]),
       transferDesc: new FormControl(null),
     });
   }
 
+  get card() {
+    return this.transferForm.get('receiverCard');
+  }
+  get amount() {
+    return this.transferForm.get('transferAmount');
+  }
   onTransfer() {
     this.isLoading = true;
     const form = this.transferForm.value;
@@ -37,6 +51,7 @@ export class TransferComponent implements OnInit {
         error: (error) => {
           this.isLoading = false;
           console.log(error);
+          this.errorMessage = error.message;
         },
       });
   }
