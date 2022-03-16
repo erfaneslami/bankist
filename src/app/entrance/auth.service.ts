@@ -33,6 +33,7 @@ export class AuthService {
     'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
   errorMessage;
   user = new BehaviorSubject<User>(null);
+  token = new BehaviorSubject<string>(null);
   isLoading = new Subject<boolean>();
   isSignup = new Subject<boolean>();
 
@@ -132,6 +133,7 @@ export class AuthService {
         }),
         tap((response) => {
           this.isLoading.next(true);
+          this.token.next(response.idToken);
           this.handleLogin(
             response.localId,
             response.idToken,
@@ -143,13 +145,6 @@ export class AuthService {
 
   private handleLogin(id: string, token: string, expiresIn: number) {
     const expireDate = new Date(new Date().getTime() + expiresIn * 1000);
-
-    // balance: 50000
-    // card: {cardNumber: 6219861044295383, cvv2: 105, exp: '02/05', ownerName: 'erfan eslami'}
-    // email: "erfan.88.eslami@gmail.com"
-    // fullName: "erfan eslami"
-    // id: "n6M5YvWnnGSCoCv00QrSGhNV1ND2"
-    // movements: [{…}]
 
     this.http
       .get<{ balance; card; email; fullName; id; movements }>(
@@ -179,6 +174,7 @@ export class AuthService {
 
   private handleError(error: HttpErrorResponse) {
     return throwError(() => {
+      console.log(error);
       if (!error.error || !error.error.error) {
         this.errorMessage = 'something went wrong please try again!';
       }
