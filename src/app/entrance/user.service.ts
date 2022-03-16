@@ -118,10 +118,21 @@ export class UserService {
       new Movements(description, moment().format(), 'deposit', amount)
     );
 
+    user.balance = user.movements
+      .map((mov) => mov.amount)
+      .reduce((sum, amount) => sum + amount, 0);
+
     this.http
       .put(
         `https://bankist-api-default-rtdb.asia-southeast1.firebasedatabase.app/users/${user.id}/movements.json`,
         user.movements
+      )
+      .subscribe();
+
+    this.http
+      .patch(
+        `https://bankist-api-default-rtdb.asia-southeast1.firebasedatabase.app/users/${user.id}.json`,
+        { balance: user.balance }
       )
       .subscribe();
   }
@@ -133,10 +144,21 @@ export class UserService {
           new Movements(description, moment().format(), 'Withdrawal', -amount)
         );
 
+        user.balance = user.movements
+          .map((mov) => mov.amount)
+          .reduce((sum, amount) => sum + amount, 0);
+
         this.http
           .put(
             `https://bankist-api-default-rtdb.asia-southeast1.firebasedatabase.app/users/${user.id}/movements.json`,
             user.movements
+          )
+          .subscribe();
+
+        this.http
+          .patch(
+            `https://bankist-api-default-rtdb.asia-southeast1.firebasedatabase.app/users/${user.id}.json`,
+            { balance: user.balance }
           )
           .subscribe();
       },
