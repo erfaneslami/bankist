@@ -115,7 +115,7 @@ export class UserService {
 
   submitDeposit(description, amount, user) {
     user.movements.push(
-      new Movements(description, moment().format(), 'deposit', amount)
+      new Movements(description, moment().format(), 'Deposit', amount)
     );
 
     user.balance = user.movements

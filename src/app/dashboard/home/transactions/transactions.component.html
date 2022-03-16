@@ -13,7 +13,12 @@
       <span class="transaction__descrption">{{ move.description }}</span
       ><span class="transaction__time">
         {{ moment(move.time).calendar() }} </span
-      ><span class="transaction__status">{{ move.status }}</span
+      ><span
+        class="transaction__status"
+        [ngClass]="{
+          'transaction__status--cancel': move.status === 'Withdrawal'
+        }"
+        >{{ move.status }}</span
       ><span class="transaction__amount">{{ move.amount }} R</span>
     </li>
   </ul>

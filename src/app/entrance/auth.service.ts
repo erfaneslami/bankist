@@ -62,7 +62,7 @@ export class AuthService {
               new Movements(
                 'initial bank',
                 moment().format(),
-                'Successfully',
+                'Deposit',
                 50000
               ),
             ],
