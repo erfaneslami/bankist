@@ -1,48 +1,50 @@
 <main>
   <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
-  <form
-    class="enter__form enter__form--active"
-    [formGroup]="transferForm"
-    (ngSubmit)="onTransfer()"
-    *ngIf="!isLoading"
-  >
-    <h2>Transfer money</h2>
-    <h5 *ngIf="errorMessage">{{ errorMessage }}</h5>
-    <p
-      *ngIf="card.touched && (card.errors?.['minlength'] || card.errors?.['maxlength'])  "
+  <div class="enter">
+    <form
+      class="enter__form enter__form--active"
+      [formGroup]="transferForm"
+      (ngSubmit)="onTransfer()"
+      *ngIf="!isLoading"
     >
-      Card number should be 16 Characters
-    </p>
-    <p *ngIf="card.touched && card.errors?.['required']">
-      please enter Card number
-    </p>
-    <input
-      class="enter__form-input"
-      placeholder="receiver card number"
-      type="text"
-      name="receiverCard"
-      id="receiverCard"
-      formControlName="receiverCard"
-    />
-    <p *ngIf="amount.touched && amount.errors?.['required']">
-      please enter amount
-    </p>
-    <input
-      class="enter__form-input"
-      placeholder="amount"
-      type="number"
-      name="transferAmount"
-      id=""
-      formControlName="transferAmount"
-    />
-    <input
-      class="enter__form-input"
-      placeholder="Description"
-      type="text"
-      name="transferDesc"
-      id=""
-      formControlName="transferDesc"
-    />
-    <button class="enter__form-btn" type="submit">transfer</button>
-  </form>
+      <h2>Transfer money</h2>
+      <h5 *ngIf="errorMessage">{{ errorMessage }}</h5>
+      <p
+        *ngIf="card.touched && (card.errors?.['minlength'] || card.errors?.['maxlength'])  "
+      >
+        Card number should be 16 Characters
+      </p>
+      <p *ngIf="card.touched && card.errors?.['required']">
+        please enter Card number
+      </p>
+      <input
+        class="enter__form-input"
+        placeholder="receiver card number"
+        type="text"
+        name="receiverCard"
+        id="receiverCard"
+        formControlName="receiverCard"
+      />
+      <p *ngIf="amount.touched && amount.errors?.['required']">
+        please enter amount
+      </p>
+      <input
+        class="enter__form-input"
+        placeholder="amount"
+        type="number"
+        name="transferAmount"
+        id=""
+        formControlName="transferAmount"
+      />
+      <input
+        class="enter__form-input"
+        placeholder="Description"
+        type="text"
+        name="transferDesc"
+        id=""
+        formControlName="transferDesc"
+      />
+      <button class="enter__form-btn" type="submit">transfer</button>
+    </form>
+  </div>
 </main>

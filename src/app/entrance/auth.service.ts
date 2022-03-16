@@ -166,6 +166,7 @@ export class AuthService {
           );
 
           this.user.next(newUser);
+          localStorage.setItem('userState', JSON.stringify(newUser));
           this.isLoading.next(false);
           this.router.navigate(['/dashboard']);
         },
@@ -192,5 +193,26 @@ export class AuthService {
   logout() {
     this.user.next(null);
     this.router.navigate(['/']);
+    localStorage.clear();
+  }
+
+  autoLogin() {
+    const userState = JSON.parse(localStorage.getItem('userState'));
+    if (!userState) return;
+    console.log(userState);
+    const newUser = new User(
+      userState.name,
+      userState.email,
+      userState.id,
+      userState.card,
+      userState.movements,
+      userState.balance,
+      userState._token,
+      new Date(userState._expireDate)
+    );
+
+    if (!newUser.token) return;
+
+    this.user.next(newUser);
   }
 }

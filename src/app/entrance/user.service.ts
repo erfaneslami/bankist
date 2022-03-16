@@ -25,7 +25,6 @@ export class UserService {
           )
           .subscribe();
 
-        console.log(user);
         this.newUser = new User(
           user.name,
           user.email,
@@ -40,6 +39,7 @@ export class UserService {
     });
 
     this.authService.user.next(this.newUser);
+    localStorage.setItem('userState', JSON.stringify(this.newUser));
   }
 
   getIncome() {

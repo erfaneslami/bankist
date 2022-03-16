@@ -1,66 +1,66 @@
-// .enter {
-//   &__form {
-//     width: 100%;
-//     width: 40rem;
-//     display: none;
-//     flex-direction: column;
-//     // align-self: flex-start;
-//     // width: 60%;
-//     margin: 0 auto;
+.enter {
+  &__form {
+    width: 100%;
+    width: 40rem;
+    display: none;
+    flex-direction: column;
+    // align-self: flex-start;
+    // width: 60%;
+    margin: 0 auto;
 
-//     &--active {
-//       display: flex;
-//     }
+    &--active {
+      display: flex;
+    }
 
-//     &-input {
-//       border: none;
-//       border-bottom: 1px solid var(--color-gray-light-2);
-//       background-color: none;
-//       font-size: 2rem;
-//       padding: 1rem 1rem;
-//       margin-bottom: 5rem;
-//       color: var(--color-gray-1);
+    &-input {
+      border: none;
+      border-bottom: 1px solid var(--color-gray-light-2);
+      background-color: none;
+      font-size: 2rem;
+      padding: 1rem 1rem;
+      margin-bottom: 5rem;
+      color: var(--color-gray-1);
 
-//       &::placeholder {
-//         font-family: inherit;
-//         color: var(--color-gray-light-2);
-//       }
+      &::placeholder {
+        font-family: inherit;
+        color: var(--color-gray-light-2);
+      }
 
-//       &:focus {
-//         outline: transparent;
-//         border-bottom: 1px solid var(--color-purple-dark);
-//       }
-//     }
+      &:focus {
+        outline: transparent;
+        border-bottom: 1px solid var(--color-purple-dark);
+      }
+    }
 
-//     &-btn {
-//       width: 35%;
-//       border: none;
-//       margin: 0 auto;
-//       font-size: 2rem;
-//       padding: 1rem 1rem;
-//       color: var(--color-white);
-//       background-color: var(--color-purple-dark);
-//       border-radius: 1.5rem;
-//       cursor: pointer;
-//     }
+    &-btn {
+      width: 35%;
+      border: none;
+      margin: 0 auto;
+      font-size: 2rem;
+      padding: 1rem 1rem;
+      color: var(--color-white);
+      background-color: var(--color-purple-dark);
+      border-radius: 1.5rem;
+      cursor: pointer;
+    }
 
-//     &-hint {
-//       text-align: center;
-//       margin-top: 2rem;
-//       font-size: 1.4rem;
-//       color: var(--color-gray-light-2);
+    &-hint {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 1.4rem;
+      color: var(--color-gray-light-2);
 
-//       a {
-//         color: var(--color-gray-1);
-//         text-decoration: none;
+      a {
+        color: var(--color-gray-1);
+        text-decoration: none;
 
-//         &:hover {
-//           text-decoration: underline;
-//         }
-//       }
-//     }
-//   }
-// }
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
 
 main {
   background-color: #fff;
