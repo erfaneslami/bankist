@@ -1,17 +1,25 @@
-import { AfterViewChecked, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewChecked,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { AuthService } from 'src/app/entrance/auth.service';
 import { User } from 'src/app/entrance/models/user.model';
 import { UserService } from 'src/app/entrance/user.service';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-balance-chart',
   templateUrl: './balance-chart.component.html',
   styleUrls: ['./balance-chart.component.scss'],
 })
-export class BalanceChartComponent implements OnInit {
+export class BalanceChartComponent implements OnInit, OnDestroy {
   @ViewChild('myChart', { static: true }) myChart: any;
   user: User;
+  userSub: Subscription;
   income: number;
   expense: number;
   constructor(
@@ -20,7 +28,7 @@ export class BalanceChartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.user.subscribe({
+    this.userSub = this.authService.user.subscribe({
       next: (user) => {
         this.user = user;
       },
@@ -29,6 +37,10 @@ export class BalanceChartComponent implements OnInit {
     this.expense = this.userService.getExpense();
     this.creatChart(this.income, this.expense);
     console.log(moment().format());
+  }
+
+  ngOnDestroy(): void {
+    this.userSub.unsubscribe();
   }
 
   creatChart(income: number, expense: number) {

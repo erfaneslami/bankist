@@ -3,9 +3,11 @@ import {
   Component,
   DoCheck,
   OnChanges,
+  OnDestroy,
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../entrance/auth.service';
 import { User } from '../entrance/models/user.model';
 
@@ -14,15 +16,16 @@ import { User } from '../entrance/models/user.model';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit, DoCheck {
+export class DashboardComponent implements OnInit, OnDestroy {
   user: User;
+  userSub: Subscription;
   constructor(
     private authService: AuthService,
     private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.authService.user.subscribe({
+    this.userSub = this.authService.user.subscribe({
       next: (user) => {
         this.user = user;
         this.cd.detectChanges();
@@ -30,5 +33,8 @@ export class DashboardComponent implements OnInit, DoCheck {
       },
     });
   }
-  ngDoCheck(): void {}
+
+  ngOnDestroy(): void {
+    this.userSub.unsubscribe();
+  }
 }
