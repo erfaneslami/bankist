@@ -225,6 +225,7 @@ export class AuthService {
 
     if (!newUser.token) return;
 
+    this.token.next(userState._token);
     this.user.next(newUser);
   }
 }

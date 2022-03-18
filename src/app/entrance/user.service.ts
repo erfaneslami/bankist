@@ -39,6 +39,7 @@ export class UserService {
     });
 
     this.authService.user.next(this.newUser);
+    this.authService.token.next(this.newUser.token);
     localStorage.setItem('userState', JSON.stringify(this.newUser));
   }
 
