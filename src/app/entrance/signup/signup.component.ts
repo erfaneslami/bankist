@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../auth.service';
-import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-signup',
@@ -12,7 +10,7 @@ import { User } from '../models/user.model';
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
   errorMessage: string = null;
-  user = new BehaviorSubject<User>(null);
+  isLoading = false;
 
   constructor(private authService: AuthService) {}
 
@@ -26,7 +24,11 @@ export class SignupComponent implements OnInit {
       ]),
     });
 
-    this.email;
+    this.authService.isLoading.subscribe({
+      next: (isLoading) => {
+        this.isLoading = isLoading;
+      },
+    });
   }
 
   get email() {

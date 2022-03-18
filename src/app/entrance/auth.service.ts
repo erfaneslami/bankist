@@ -40,6 +40,8 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   signup(email: string, password: string, fullName: string) {
+    this.isLoading.next(true);
+
     return this.http
       .post<AuthResponseData>(`${this.SIGNUP_URL + this.API_KEY}`, {
         email: email,
@@ -48,11 +50,11 @@ export class AuthService {
       })
       .pipe(
         catchError((error) => {
+          this.isLoading.next(false);
+
           return this.handleError(error);
         }),
         tap((response) => {
-          this.isLoading.next(true);
-
           console.log(fullName);
           this.handleSignup(
             fullName,
@@ -121,6 +123,8 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
+    this.isLoading.next(true);
+
     return this.http
       .post<AuthResponseData>(`${this.LOGIN_URL + this.API_KEY} `, {
         email: email,
@@ -129,10 +133,12 @@ export class AuthService {
       })
       .pipe(
         catchError((error) => {
+          this.isLoading.next(false);
+
           return this.handleError(error);
         }),
         tap((response) => {
-          this.isLoading.next(true);
+          // this.isLoading.next(true);
           this.token.next(response.idToken);
           this.handleLogin(
             response.localId,

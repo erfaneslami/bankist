@@ -9,7 +9,8 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  // isLoading = false;
+  errorMessage: string = null;
+  isLoading = false;
 
   constructor(private authService: AuthService) {}
 
@@ -21,6 +22,20 @@ export class LoginComponent implements OnInit {
         Validators.minLength(6),
       ]),
     });
+
+    this.authService.isLoading.subscribe({
+      next: (isLoading) => {
+        this.isLoading = isLoading;
+      },
+    });
+  }
+
+  get password() {
+    return this.loginForm.get('password');
+  }
+
+  get email() {
+    return this.loginForm.get('email');
   }
 
   onLogin() {
@@ -36,10 +51,7 @@ export class LoginComponent implements OnInit {
         // this.isLoading = false;
       },
       error: (error) => {
-        console.log(error);
-      },
-      complete: () => {
-        console.log('compleat');
+        this.errorMessage = error;
       },
     });
   }

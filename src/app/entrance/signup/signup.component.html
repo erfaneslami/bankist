@@ -2,8 +2,9 @@
   class="enter__form enter__form--active"
   [formGroup]="signupForm"
   (ngSubmit)="onSignup()"
+  *ngIf="!isLoading"
 >
-  <p *ngIf="errorMessage">{{ errorMessage }}</p>
+  <h5 *ngIf="errorMessage">{{ errorMessage }}</h5>
   <input
     class="enter__form-input enter__form-input--email"
     placeholder="Full name"

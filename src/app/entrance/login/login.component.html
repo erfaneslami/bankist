@@ -2,7 +2,12 @@
   class="enter__form enter__form--active"
   [formGroup]="loginForm"
   (ngSubmit)="onLogin()"
+  *ngIf="!isLoading"
 >
+  <h5 *ngIf="errorMessage">{{ errorMessage }}</h5>
+  <p *ngIf="email.touched && !email.valid">
+    please enter a valid email address
+  </p>
   <input
     class="enter__form-input enter__form-input--email"
     placeholder="Email"
@@ -11,6 +16,9 @@
     id="email"
     formControlName="email"
   />
+  <p *ngIf="password.touched && password.errors?.['required']">
+    please enter a password
+  </p>
   <input
     class="enter__form-input enter__form-input--password"
     placeholder="Password"
