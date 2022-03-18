@@ -46,11 +46,15 @@
         flex-basis: 15rem;
 
         &:nth-child(1) {
+          flex-basis: 15rem;
+        }
+
+        &:nth-child(2) {
           flex-basis: 20rem;
         }
 
         &:nth-child(3) {
-          flex-basis: 10rem;
+          flex-basis: 8rem;
           color: var(--color-purple-dark);
         }
 

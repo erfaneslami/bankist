@@ -189,7 +189,13 @@ export class AuthService {
         case 'EMAIL_EXISTS':
           this.errorMessage =
             'this email is Already available, try Login or rest password';
-          console.log(this.errorMessage);
+          break;
+        case 'EMAIL_NOT_FOUND':
+          this.errorMessage = 'Wrong Username or Password !';
+          break;
+        case 'INVALID_PASSWORD':
+          this.errorMessage = 'Wrong Username or Password !';
+          break;
       }
 
       return this.errorMessage;
