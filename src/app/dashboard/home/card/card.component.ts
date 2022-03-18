@@ -11,6 +11,7 @@ import { User } from 'src/app/entrance/models/user.model';
 export class CardComponent implements OnInit, OnDestroy {
   user: User;
   userSub: Subscription;
+  bankName: string;
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
@@ -19,6 +20,15 @@ export class CardComponent implements OnInit, OnDestroy {
         this.user = user;
       },
     });
+
+    this.bankName =
+      `${this.user.card.cardNumber}`.slice(0, 4) === `6219`
+        ? `Saman`
+        : `${this.user.card.cardNumber}`.slice(0, 4) === `5022`
+        ? `Pasargad `
+        : `${this.user.card.cardNumber}`.slice(0, 4) === `6037`
+        ? `Saderat `
+        : `un known Bank`;
   }
 
   ngOnDestroy(): void {
