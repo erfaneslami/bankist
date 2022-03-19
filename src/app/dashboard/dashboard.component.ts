@@ -29,7 +29,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       next: (user) => {
         this.user = user;
         this.cd.detectChanges();
-        console.log('test');
       },
     });
   }

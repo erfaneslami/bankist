@@ -6,6 +6,7 @@ import {
   catchError,
   map,
   Subject,
+  take,
   tap,
   throwError,
 } from 'rxjs';
@@ -36,6 +37,7 @@ export class AuthService {
   token = new BehaviorSubject<string>(null);
   isLoading = new Subject<boolean>();
   isSignup = new Subject<boolean>();
+  private expireTimeout: any;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -115,6 +117,8 @@ export class AuthService {
             expireDate
           );
           this.user.next(newUser);
+          this.autoLogout(expiresIn * 1000);
+
           this.isLoading.next(false);
           this.router.navigate(['/signup/add-card']);
           this.isSignup.next(true);
@@ -172,6 +176,7 @@ export class AuthService {
           );
 
           this.user.next(newUser);
+          this.autoLogout(expiresIn * 1000);
           localStorage.setItem('userState', JSON.stringify(newUser));
           this.isLoading.next(false);
           this.router.navigate(['/dashboard']);
@@ -204,14 +209,24 @@ export class AuthService {
 
   logout() {
     this.user.next(null);
-    this.router.navigate(['/']);
     localStorage.clear();
+    if (this.expireTimeout) {
+      clearTimeout(this.expireTimeout);
+    }
+    this.expireTimeout = null;
+    this.router.navigate(['/']);
+  }
+
+  autoLogout(expireDate) {
+    this.expireTimeout = setTimeout(() => {
+      this.logout();
+    }, expireDate);
   }
 
   autoLogin() {
     const userState = JSON.parse(localStorage.getItem('userState'));
     if (!userState) return;
-    console.log(userState);
+
     const newUser = new User(
       userState.name,
       userState.email,
@@ -225,6 +240,10 @@ export class AuthService {
 
     if (!newUser.token) return;
 
+    const timer =
+      new Date(userState._expireDate).getTime() - new Date().getTime();
+
+    this.autoLogout(timer);
     this.token.next(userState._token);
     this.user.next(newUser);
   }
