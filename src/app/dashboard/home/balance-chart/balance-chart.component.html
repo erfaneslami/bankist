@@ -1,9 +1,9 @@
 <div class="balance-sammery">
   <div class="balance-sammery__filters">
     <ul class="filters">
-      <li class="filter--week">Week</li>
-      <li class="filter--month">Month</li>
-      <li class="filter--year">Year</li>
+      <li class="filter--week" (click)="onFilterWeek()">Week</li>
+      <li class="filter--month" (click)="onFilterMonth()">Month</li>
+      <li class="filter--year" (click)="onFilterYear()">Year</li>
     </ul>
   </div>
   <div class="balance-sammery__progress-circle">
@@ -13,7 +13,7 @@
     <ul>
       <li>
         <span> Balance : </span>
-        <span class="balance-sammery__balance"> {{ user.balance }}</span>
+        <span class="balance-sammery__balance"> {{ balance }}</span>
       </li>
       <li>
         <span> Income : </span>

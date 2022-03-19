@@ -43,42 +43,34 @@ export class UserService {
     localStorage.setItem('userState', JSON.stringify(this.newUser));
   }
 
-  getIncome() {
-    let income: number;
-    this.authService.user.pipe(take(1)).subscribe({
-      next: (user) => {
-        if (!user.movements) {
-          income = 0;
-          return;
-        }
-        income = user.movements
-          ?.map((move) => move.amount)
-          .filter((amount) => amount > 0)
-          .reduce((sum, income) => {
-            return sum + income;
-          }, 0);
-      },
-    });
-    return income;
+  getIncome(movements) {
+    if (!movements) {
+      return 0;
+    }
+    return movements
+      ?.map((move) => move.amount)
+      .filter((amount) => amount > 0)
+      .reduce((sum, income) => {
+        return sum + income;
+      }, 0);
   }
 
-  getExpense() {
-    let expense: number;
-    this.authService.user.pipe(take(1)).subscribe({
-      next: (user) => {
-        if (!user.movements) {
-          expense = 0;
-          return;
-        }
-        expense = user.movements
-          ?.map((move) => move.amount)
-          .filter((amount) => amount < 0)
-          .reduce((sum, expense) => {
-            return sum + expense;
-          }, 0);
-      },
-    });
-    return expense;
+  getExpense(movements) {
+    if (!movements) {
+      return 0;
+    }
+    return movements
+      ?.map((move) => move.amount)
+      .filter((amount) => amount < 0)
+      .reduce((sum, expense) => {
+        return sum + expense;
+      }, 0);
+  }
+
+  getBalance(movements) {
+    return movements
+      .map((mov) => mov.amount)
+      .reduce((sum, amount) => sum + amount, 0);
   }
 
   transfer(cardNumber, amount, description) {
