@@ -21,6 +21,11 @@ in this app you can
 -- loan and setting not working ...
 
 
+##
+
+#### note : if you are in iran use vpn to work with app 
+##### large screen size only
+
 ### click [here](https://bank-app-bankist.netlify.app/) to get start
 
 
